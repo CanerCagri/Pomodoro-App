@@ -9,21 +9,25 @@
 /* Begin PBXBuildFile section */
 		01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */; };
 		01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */; };
-		01D5B1442959F9FF00A6B4A4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1432959F9FF00A6B4A4 /* ViewController.swift */; };
-		01D5B1472959F9FF00A6B4A4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B1452959F9FF00A6B4A4 /* Main.storyboard */; };
 		01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B1482959FA0100A6B4A4 /* Assets.xcassets */; };
 		01D5B14C2959FA0100A6B4A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */; };
+		01D5B1542959FAD600A6B4A4 /* MainTabBarVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */; };
+		01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */; };
+		01D5B1582959FB7100A6B4A4 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1572959FB7100A6B4A4 /* ToDoListViewController.swift */; };
+		01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		01D5B13C2959F9FF00A6B4A4 /* Pomodoro-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pomodoro-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		01D5B1432959F9FF00A6B4A4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		01D5B1462959F9FF00A6B4A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		01D5B1482959FA0100A6B4A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		01D5B14B2959FA0100A6B4A4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		01D5B14D2959FA0100A6B4A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVc.swift; sourceTree = "<group>"; };
+		01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewController.swift; sourceTree = "<group>"; };
+		01D5B1572959FB7100A6B4A4 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
+		01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +60,33 @@
 		01D5B13E2959F9FF00A6B4A4 /* Pomodoro-App */ = {
 			isa = PBXGroup;
 			children = (
+				01D5B15C295B28DE00A6B4A4 /* Controllers */,
+				01D5B15B295B289800A6B4A4 /* Views */,
 				01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */,
 				01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */,
-				01D5B1432959F9FF00A6B4A4 /* ViewController.swift */,
-				01D5B1452959F9FF00A6B4A4 /* Main.storyboard */,
 				01D5B1482959FA0100A6B4A4 /* Assets.xcassets */,
 				01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */,
 				01D5B14D2959FA0100A6B4A4 /* Info.plist */,
 			);
 			path = "Pomodoro-App";
+			sourceTree = "<group>";
+		};
+		01D5B15B295B289800A6B4A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		01D5B15C295B28DE00A6B4A4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */,
+				01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */,
+				01D5B1572959FB7100A6B4A4 /* ToDoListViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +149,6 @@
 			files = (
 				01D5B14C2959FA0100A6B4A4 /* LaunchScreen.storyboard in Resources */,
 				01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */,
-				01D5B1472959F9FF00A6B4A4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,23 +159,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01D5B1442959F9FF00A6B4A4 /* ViewController.swift in Sources */,
 				01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */,
+				01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */,
 				01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */,
+				01D5B1582959FB7100A6B4A4 /* ToDoListViewController.swift in Sources */,
+				01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */,
+				01D5B1542959FAD600A6B4A4 /* MainTabBarVc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		01D5B1452959F9FF00A6B4A4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				01D5B1462959F9FF00A6B4A4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -292,9 +308,9 @@
 				INFOPLIST_FILE = "Pomodoro-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,9 +318,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CanerCagri.Pomodoro-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -320,9 +339,9 @@
 				INFOPLIST_FILE = "Pomodoro-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,9 +349,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "CanerCagri.Pomodoro-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
