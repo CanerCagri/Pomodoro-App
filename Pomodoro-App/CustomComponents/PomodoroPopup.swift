@@ -29,7 +29,7 @@ class PomodoroPopup: UIView {
     private let pomodoroNameTextField: UITextField = {
         var text = UITextField()
         text.translatesAutoresizingMaskIntoConstraints = false
-        //        text.leftViewMode = .always
+        text.leftViewMode = .always
         text.textAlignment = .center
         text.layer.borderWidth = 2
         text.layer.borderColor = UIColor.systemGray4.cgColor
@@ -106,6 +106,7 @@ class PomodoroPopup: UIView {
                 self.removeFromSuperview()
             }
         }
+        NotificationCenter.default.post(Notification(name: Notification.Name("animateOut")))
     }
     
     @objc func animateIn() {
@@ -149,9 +150,6 @@ class PomodoroPopup: UIView {
                 print(failure.localizedDescription)
             }
         }
-  
-        
-        
     }
     
     private func applyConstraints() {

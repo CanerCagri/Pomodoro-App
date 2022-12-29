@@ -46,13 +46,11 @@ class PersistenceManager {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
-        
         let request: NSFetchRequest<PomodoroItem>
         
         request = PomodoroItem.fetchRequest()
         
         do {
-            
             let pomodoros = try context.fetch(request)
             completion(.success(pomodoros))
             
@@ -61,5 +59,37 @@ class PersistenceManager {
         }
     }
     
+    func deletePomodoroWith(model: PomodoroItem, completion: @escaping (Result<Void, Error>) -> Void) {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        context.delete(model)
+        
+        do {
+            try context.save()
+            completion(.success(()))
+        } catch {
+            completion(.failure(DatabaseError.failedToDeleteData))
+        }
+    }
+    
+    func deleteAllPomodoros() {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PomodoroItem")
+        
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try context.execute(batchDeleteRequest)
+        } catch {
+            // Handle the error
+        }
+    }
 }
 

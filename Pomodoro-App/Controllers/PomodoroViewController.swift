@@ -23,10 +23,6 @@ class PomodoroViewController: UIViewController {
         
         configureViewController()
         fetchFromDatabase()
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("added"), object: nil, queue: nil) { _ in
-            self.fetchFromDatabase()
-        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -47,13 +43,34 @@ class PomodoroViewController: UIViewController {
         view.addSubview(pomodoroTableView)
         pomodoroTableView.delegate = self
         pomodoroTableView.dataSource = self
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("added"), object: nil, queue: nil) { _ in
+            self.fetchFromDatabase()
+        }
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("animateOut"), object: nil, queue: nil) { _ in
+            self.navigationItem.rightBarButtonItem?.isEnabled = true
+        }
     }
     
     @objc func leftBarButtonTapped() {
-        print("left button tapped")
+        let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
+        
+        let deleteButton = UIAlertAction(title: "Delete", style: .default) { _ in
+            PersistenceManager.shared.deleteAllPomodoros()
+            self.pomodoros.removeAll()
+            self.pomodoroTableView.reloadData()
+        }
+        
+        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        alertController.addAction(deleteButton)
+        alertController.addAction(cancelButton)
+        present(alertController, animated: true)
     }
     
     @objc func rightBarButtonTapped() {
+        
+        navigationItem.rightBarButtonItem?.isEnabled = false
         view.backgroundColor = .gray
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
@@ -100,5 +117,24 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            PersistenceManager.shared.deletePomodoroWith(model: pomodoros[indexPath.row]) { [weak self] result in
+                switch result {
+                case .success():
+                    print("Pomodoro Deleted Succesfully")
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
+                self?.pomodoros.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        default:
+            break
+            
+        }
     }
 }
