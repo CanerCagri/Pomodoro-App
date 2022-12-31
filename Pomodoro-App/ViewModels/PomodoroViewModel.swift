@@ -10,8 +10,8 @@ import Foundation
 
 struct PomodoroViewModel {
     let name: String
-    let workTimeHour: Int
-    let workTimeMin: Int
-    let breakTimeHour: Int
-    let breakTimeMin: Int
+    let workTimeHour: String
+    let workTimeMin: String
+    let breakTimeHour: String
+    let breakTimeMin: String
 }

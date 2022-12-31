@@ -62,7 +62,7 @@ class PomodoroPopup: UIView {
         label.text = "Choose Break Time"
         return label
     }()
-
+    
     private let breakTimePicker: UIDatePicker = {
         var picker = UIDatePicker()
         picker.datePickerMode = .countDownTimer
@@ -122,33 +122,38 @@ class PomodoroPopup: UIView {
     
     @objc func saveButtonTapped() {
         
-        guard let name = pomodoroNameTextField.text else { return }
+        guard let name = pomodoroNameTextField.text, !name.isEmpty else { return }
         
         let calendar = Calendar.current
         let pomodoroComponents = calendar.dateComponents([.hour, .minute], from: pomodoroPicker.date)
-        guard let hour = pomodoroComponents.hour else { return }
-        guard let minute = pomodoroComponents.minute else { return }
-        
-        let pomodoroHour = String(format: "%02d", hour)
-        let pomodoroMin = String(format: "%02d", minute)
+        let pomoHour = pomodoroComponents.hour
+        let pomoMin = pomodoroComponents.minute
         
         let breakTimeComponents = calendar.dateComponents([.hour, .minute], from: breakTimePicker.date)
-        guard let hour = breakTimeComponents.hour else { return }
-        guard let minute = breakTimeComponents.minute else { return }
+        let breakHour = breakTimeComponents.hour
+        let breakMin = breakTimeComponents.minute
         
-        let breakTimeHour = String(format: "%02d", hour)
-        let breakTimeMin = String(format: "%02d", minute)
-        
-        let viewModel = PomodoroViewModel(name: name, workTimeHour: Int(pomodoroHour)!, workTimeMin: Int(pomodoroMin)!, breakTimeHour: Int(breakTimeHour)!, breakTimeMin: Int(breakTimeMin)!)
-        
-        PersistenceManager.shared.downloadWithModel(model: viewModel) { result in
-            switch result {
-            case .success():
-                NotificationCenter.default.post(Notification(name: Notification.Name("added")))
-                self.animateOut()
-            case .failure(let failure):
-                print(failure.localizedDescription)
+        if pomoMin != 0 || breakMin != 0 {
+            
+            let pomodoroHour = String(format: "%02d", pomoHour!)
+            let pomodoroMin = String(format: "%02d", pomoMin!)
+            
+            let breakTimeHour = String(format: "%02d", breakHour!)
+            let breakTimeMin = String(format: "%02d", breakMin!)
+            
+            let viewModel = PomodoroViewModel(name: name, workTimeHour: pomodoroHour, workTimeMin: pomodoroMin, breakTimeHour: breakTimeHour, breakTimeMin: breakTimeMin)
+            
+            PersistenceManager.shared.downloadWithModel(model: viewModel) { result in
+                switch result {
+                case .success():
+                    NotificationCenter.default.post(Notification(name: Notification.Name("added")))
+                    self.animateOut()
+                case .failure(let failure):
+                    print(failure.localizedDescription)
+                }
             }
+        } else {
+            return
         }
     }
     

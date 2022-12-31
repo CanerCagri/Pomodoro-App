@@ -53,19 +53,25 @@ class PomodoroViewController: UIViewController {
     }
     
     @objc func leftBarButtonTapped() {
-        let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
         
-        let deleteButton = UIAlertAction(title: "Delete", style: .default) { _ in
-            PersistenceManager.shared.deleteAllPomodoros()
-            self.pomodoros.removeAll()
-            self.pomodoroTableView.reloadData()
+        if pomodoros.count != 0 {
+            
+            let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
+            
+            let deleteButton = UIAlertAction(title: "Delete", style: .default) { _ in
+                PersistenceManager.shared.deleteAllPomodoros()
+                self.pomodoros.removeAll()
+                self.pomodoroTableView.reloadData()
+            }
+            
+            let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            alertController.addAction(deleteButton)
+            alertController.addAction(cancelButton)
+            present(alertController, animated: true)
+        } else {
+            return
         }
-        
-        let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alertController.addAction(deleteButton)
-        alertController.addAction(cancelButton)
-        present(alertController, animated: true)
     }
     
     @objc func rightBarButtonTapped() {
@@ -106,13 +112,19 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
         let pomodoro = pomodoros[indexPath.row]
         
         cell.nameLabel.text = pomodoro.name
-        cell.workTimeLabel.text = "Work Time: \(pomodoro.work_time_hour):\(pomodoro.work_time_min)"
-        cell.breakTimeLabel.text = "Break Time: \(pomodoro.break_time_hour):\(pomodoro.break_time_min)"
+        
+        
+        cell.workTimeLabel.text = "Work Time: \(pomodoro.work_time_hour!):\(pomodoro.work_time_min!)"
+        cell.breakTimeLabel.text = "Break Time: \(pomodoro.break_time_hour!):\(pomodoro.break_time_min!)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let detailVc = PomodoroDetailViewController()
+        detailVc.selectedPomodoro = pomodoros[indexPath.row]
+        navigationController?.pushViewController(detailVc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

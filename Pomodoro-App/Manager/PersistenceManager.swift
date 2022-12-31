@@ -28,10 +28,10 @@ class PersistenceManager {
         let item = PomodoroItem(context: context)
         
         item.name = model.name
-        item.work_time_hour = Int64(model.workTimeHour)
-        item.work_time_min = Int64(model.workTimeMin)
-        item.break_time_hour = Int64(model.breakTimeHour)
-        item.break_time_min = Int64(model.breakTimeMin)
+        item.work_time_hour = String(model.workTimeHour)
+        item.work_time_min = String(model.workTimeMin)
+        item.break_time_hour = String(model.breakTimeHour)
+        item.break_time_min = String(model.breakTimeMin)
     
         do {
             try context.save()
@@ -88,7 +88,7 @@ class PersistenceManager {
         do {
             try context.execute(batchDeleteRequest)
         } catch {
-            // Handle the error
+            print(error.localizedDescription)
         }
     }
 }
