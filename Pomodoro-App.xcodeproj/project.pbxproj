@@ -20,6 +20,8 @@
 		01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */; };
 		01D5B168295C79AB00A6B4A4 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */; };
 		01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */; };
+		01D5B16D296345EC00A6B4A4 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */; };
+		01D5B16F2963460900A6B4A4 /* TimeInterval+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B16E2963460900A6B4A4 /* TimeInterval+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		01D5B164295C796100A6B4A4 /* PomodoroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PomodoroModel.xcdatamodel; sourceTree = "<group>"; };
 		01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroDetailViewController.swift; sourceTree = "<group>"; };
+		01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
+		01D5B16E2963460900A6B4A4 /* TimeInterval+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,7 @@
 		01D5B13E2959F9FF00A6B4A4 /* Pomodoro-App */ = {
 			isa = PBXGroup;
 			children = (
+				01D5B16B296345D600A6B4A4 /* Extensions */,
 				01D5B166295C798900A6B4A4 /* Manager */,
 				01D5B160295B358400A6B4A4 /* CustomComponents */,
 				01D5B15D295B30E400A6B4A4 /* ViewModels */,
@@ -115,7 +120,8 @@
 		01D5B160295B358400A6B4A4 /* CustomComponents */ = {
 			isa = PBXGroup;
 			children = (
-				01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */,
+				01D5B1712963463200A6B4A4 /* Buttons */,
+				01D5B1702963462400A6B4A4 /* Popups */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -126,6 +132,30 @@
 				01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		01D5B16B296345D600A6B4A4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */,
+				01D5B16E2963460900A6B4A4 /* TimeInterval+Ext.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		01D5B1702963462400A6B4A4 /* Popups */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */,
+			);
+			path = Popups;
+			sourceTree = "<group>";
+		};
+		01D5B1712963463200A6B4A4 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Buttons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,11 +234,13 @@
 				01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */,
 				01D5B162295B359000A6B4A4 /* PomodoroPopup.swift in Sources */,
 				01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */,
+				01D5B16F2963460900A6B4A4 /* TimeInterval+Ext.swift in Sources */,
 				01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */,
 				01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */,
 				01D5B1582959FB7100A6B4A4 /* ToDoListViewController.swift in Sources */,
 				01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */,
 				01D5B1542959FAD600A6B4A4 /* MainTabBarVc.swift in Sources */,
+				01D5B16D296345EC00A6B4A4 /* Int+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

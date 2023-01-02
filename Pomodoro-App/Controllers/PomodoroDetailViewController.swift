@@ -6,11 +6,24 @@
 //
 
 import UIKit
+import AVFoundation
 
 class PomodoroDetailViewController: UIViewController {
     
-    var timer: Timer?
-    var remainingTime = 0
+    var audioPlayer: AVAudioPlayer?
+    let soundURL = URL(fileURLWithPath: "/path/to/sound/file.mp3") // TO DO
+    
+    // Animation
+    let timeLeftShapeLayer = CAShapeLayer()
+    let bgShapeLayer = CAShapeLayer()
+    var timeLeft: TimeInterval = 0
+    var endTime: Date?
+    var animationTimer: Timer!
+    
+    var temp = 0
+   
+    // here you create your basic animation object to animate the strokeEnd
+    let strokeIt = CABasicAnimation(keyPath: "strokeEnd")
 
     var startTapped = false
     
@@ -25,11 +38,10 @@ class PomodoroDetailViewController: UIViewController {
     private let pomodoroLabel: UILabel = {
         var label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 50, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 25, weight: .bold)
         label.textAlignment = .center
-        label.backgroundColor = .green
         label.textColor = .label
-        label.text = "TESTTT"
+        label.text = ""
         return label
     }()
     
@@ -38,9 +50,13 @@ class PomodoroDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .filled()
         button.configuration?.cornerStyle = .medium
-        button.configuration?.baseBackgroundColor = .systemBlue
+        button.configuration?.baseBackgroundColor = .systemPink
         button.configuration?.baseForegroundColor = .white
-        button.configuration?.title = "Start"
+        
+        var container = AttributeContainer()
+        container.font = UIFont(name: "GillSans-SemiBold", size: 22)
+        
+        button.configuration?.attributedTitle = AttributedString("Start", attributes: container)
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -50,9 +66,13 @@ class PomodoroDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .filled()
         button.configuration?.cornerStyle = .medium
-        button.configuration?.baseBackgroundColor = .systemBlue
+        button.configuration?.baseBackgroundColor = .systemPink
         button.configuration?.baseForegroundColor = .white
-        button.configuration?.title = "Pause"
+
+        var container = AttributeContainer()
+        container.font = UIFont(name: "GillSans-SemiBold", size: 22)
+        
+        button.configuration?.attributedTitle = AttributedString("Pause", attributes: container)
         button.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -62,11 +82,22 @@ class PomodoroDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.configuration = .filled()
         button.configuration?.cornerStyle = .medium
-        button.configuration?.baseBackgroundColor = .systemBlue
+        button.configuration?.baseBackgroundColor = .systemPink
         button.configuration?.baseForegroundColor = .white
-        button.configuration?.title = "Reset"
+        var container = AttributeContainer()
+        container.font = UIFont(name: "GillSans-SemiBold", size: 22)
+        
+        button.configuration?.attributedTitle = AttributedString("Reset", attributes: container)
         button.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
         return button
+    }()
+    
+    lazy var shapeLayer: CAShapeLayer = {
+        let layer = CAShapeLayer()
+        layer.fillColor = UIColor.clear.cgColor
+        layer.strokeColor = UIColor.red.cgColor
+        layer.lineWidth = 10.0
+        return layer
     }()
 
     override func viewDidLoad() {
@@ -74,6 +105,27 @@ class PomodoroDetailViewController: UIViewController {
         view.backgroundColor = .systemBackground
        
         addConstraints()
+        addAnimation()
+    }
+    
+    private func addAnimation() {
+        bgShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY - 100), radius:
+            100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
+        bgShapeLayer.strokeColor = UIColor.systemPink.cgColor
+        bgShapeLayer.fillColor = UIColor.clear.cgColor
+        bgShapeLayer.lineWidth = 15
+        view.layer.addSublayer(bgShapeLayer)
+        
+        timeLeftShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX , y: view.frame.midY - 100), radius:
+            100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
+        timeLeftShapeLayer.strokeColor = UIColor.gray.cgColor
+        timeLeftShapeLayer.fillColor = UIColor.clear.cgColor
+        timeLeftShapeLayer.lineWidth = 15
+        view.layer.addSublayer(timeLeftShapeLayer)
+        
+        
+        
+    
     }
     
     private func convertTextToMin(pomodoroTime: String) {
@@ -87,17 +139,63 @@ class PomodoroDetailViewController: UIViewController {
         scanner.scanInt(&minutes)
 
         let totalMinutes = hours * 60 + minutes
-        remainingTime = totalMinutes * 60
+        timeLeft = TimeInterval(totalMinutes * 60)
+        temp = totalMinutes * 60
     }
     
-    private func updateLabel() {
-        let hours = remainingTime / 3600
-        let minutes = (remainingTime % 3600) / 60
-        let seconds = remainingTime % 60
-        pomodoroLabel.text = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-        remainingTime -= 1
+    @objc func updateTime() {
+        if timeLeft > 0 {
+            timeLeft = endTime?.timeIntervalSinceNow ?? 0
+            pomodoroLabel.text = timeLeft.time
+        } else {
+            pomodoroLabel.text = "00:00"
+            finishSound()
+            animationTimer.invalidate()
+        }
+    }
+    
+    private func finishSound() {
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.play()
+        } catch {
+            print(error.localizedDescription)
+        }
     }
 
+    @objc func startButtonTapped() {
+        if !startTapped {
+            strokeIt.fromValue = 0
+            strokeIt.toValue = 1
+            strokeIt.duration = timeLeft
+            strokeIt.timeOffset = Double(temp) - timeLeft
+            
+            timeLeftShapeLayer.add(strokeIt, forKey: "countDown")
+            // define the future end time by adding the timeLeft to now Date()
+            endTime = Date().addingTimeInterval(timeLeft)
+            
+            animationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+                self?.updateTime()
+            }
+        }
+        startTapped = true
+    }
+    
+    @objc func stopButtonTapped() {
+        startTapped = false
+        animationTimer.invalidate()
+        timeLeftShapeLayer.removeAnimation(forKey: "countDown")
+       
+    }
+    
+    @objc func resetButtonTapped() {
+        startTapped = false
+        animationTimer.invalidate()
+        timeLeftShapeLayer.removeAnimation(forKey: "countDown")
+        pomodoroLabel.text = "\(selectedPomodoro?.work_time_hour ?? ""):\(selectedPomodoro?.work_time_min ?? "")"
+        convertTextToMin(pomodoroTime: pomodoroLabel.text!)
+    }
+    
     private func addConstraints() {
         view.addSubview(pomodoroLabel)
         view.addSubview(startButton)
@@ -107,7 +205,7 @@ class PomodoroDetailViewController: UIViewController {
         let pomodoroLabelConstraints = [
             
             pomodoroLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pomodoroLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            pomodoroLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
             pomodoroLabel.widthAnchor.constraint(equalToConstant: 300),
             pomodoroLabel.heightAnchor.constraint(equalToConstant: 300),
         ]
@@ -137,34 +235,5 @@ class PomodoroDetailViewController: UIViewController {
         NSLayoutConstraint.activate(startButtonConstraints)
         NSLayoutConstraint.activate(stopButtonConstraints)
         NSLayoutConstraint.activate(resetButtonConstraints)
-
-    }
-    
-    @objc func startButtonTapped() {
-        if !startTapped {
-            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
-                self?.updateLabel()
-                if self?.remainingTime == 0 {
-                    // i will add music here, pomodoro = work time is over
-                    self?.pomodoroLabel.text = "00:00:00"
-                    timer.invalidate()
-                }
-            }
-        }
-        
-        startTapped = true
-    }
-    
-    @objc func stopButtonTapped() {
-        startTapped = false
-        timer?.invalidate()
-        
-    }
-    
-    @objc func resetButtonTapped() {
-        startTapped = false
-        timer?.invalidate()
-        pomodoroLabel.text = "\(selectedPomodoro?.work_time_hour ?? ""):\(selectedPomodoro?.work_time_min ?? "")"
-        convertTextToMin(pomodoroTime: pomodoroLabel.text!)
     }
 }

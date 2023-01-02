@@ -21,7 +21,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.rootViewController = MainTabBarVc()
         window?.makeKeyAndVisible()
+        
+ 
     }
+    
+  
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
