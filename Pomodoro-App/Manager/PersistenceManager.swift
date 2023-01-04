@@ -19,12 +19,9 @@ class PersistenceManager {
     static let shared = PersistenceManager()
     
     func downloadWithModel(model: PomodoroViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
-        
-       
         let item = PomodoroItem(context: context)
         
         item.name = model.name
@@ -42,12 +39,10 @@ class PersistenceManager {
     }
     
     func fetchPomodoros(completion: @escaping(Result<[PomodoroItem], Error> )-> Void) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
         let request: NSFetchRequest<PomodoroItem>
-        
         request = PomodoroItem.fetchRequest()
         
         do {
@@ -60,11 +55,9 @@ class PersistenceManager {
     }
     
     func deletePomodoroWith(model: PomodoroItem, completion: @escaping (Result<Void, Error>) -> Void) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
-        
         context.delete(model)
         
         do {
@@ -76,13 +69,10 @@ class PersistenceManager {
     }
     
     func deleteAllPomodoros() {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
-        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PomodoroItem")
-        
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {
@@ -92,4 +82,3 @@ class PersistenceManager {
         }
     }
 }
-

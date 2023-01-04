@@ -11,33 +11,14 @@ class PomodoroTableViewCell: UITableViewCell {
     
     static let identifier = "PomodoroTableViewCell"
 
-    var nameLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "TEST"
-        return label
-    }()
-    
-    var workTimeLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Work Time: 00:55"
-        return label
-    }()
-    
-    var breakTimeLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Break Time: 00:10"
-        return label
-    }()
+    var nameLabel = PATitleLabel(textAlignment: .left, fontSize: 22)
+    var workTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
+    var breakTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(workTimeLabel)
-        contentView.addSubview(breakTimeLabel)
         
+        nameLabel.numberOfLines = 0
         applyConstraints()
     }
     
@@ -46,6 +27,9 @@ class PomodoroTableViewCell: UITableViewCell {
     }
     
     private func applyConstraints() {
+        contentView.addSubviews(nameLabel, workTimeLabel, breakTimeLabel)
+        accessoryType = .disclosureIndicator
+        
         let nameLabelConstraints = [
             nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
@@ -56,6 +40,7 @@ class PomodoroTableViewCell: UITableViewCell {
         let workTimeLabelConstraints = [
             workTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
             workTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            workTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
             workTimeLabel.widthAnchor.constraint(equalToConstant: 150),
             workTimeLabel.heightAnchor.constraint(equalToConstant: 30),
         ]
@@ -63,6 +48,7 @@ class PomodoroTableViewCell: UITableViewCell {
         let breakTimeLabel = [
             breakTimeLabel.topAnchor.constraint(equalTo: workTimeLabel.bottomAnchor, constant: 5),
             breakTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
+            breakTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
             breakTimeLabel.heightAnchor.constraint(equalToConstant: 30),
             breakTimeLabel.widthAnchor.constraint(equalToConstant: 150),
         ]

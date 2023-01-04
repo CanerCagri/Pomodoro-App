@@ -9,14 +9,26 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
-    private var pomodoros: [PomodoroItem] = [PomodoroItem]()
+    private var pomodoros: [PomodoroItem] = []
+    private var filteredPomodoros: [PomodoroItem] = []
+    
+    var isSearching = false
     
     private let pomodoroTableView: UITableView = {
-        
         var tableView = UITableView()
         tableView.register(PomodoroTableViewCell.self, forCellReuseIdentifier: PomodoroTableViewCell.identifier)
         return tableView
     }()
+    
+    private let searchController: UISearchController = {
+        var controller = UISearchController()
+        controller.searchBar.placeholder = "Search for a pomodoro with name"
+        controller.searchBar.searchBarStyle = .minimal
+        controller.obscuresBackgroundDuringPresentation = false
+        return controller
+    }()
+    
+    // ViewController Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +37,17 @@ class PomodoroViewController: UIViewController {
         fetchFromDatabase()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         pomodoroTableView.frame = view.bounds
     }
+    
+    // Functions
     
     private func configureViewController() {
         title = "Pomodoro"
@@ -43,6 +62,13 @@ class PomodoroViewController: UIViewController {
         view.addSubview(pomodoroTableView)
         pomodoroTableView.delegate = self
         pomodoroTableView.dataSource = self
+        pomodoroTableView.removeExcessCells()
+        pomodoroTableView.rowHeight = 100
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name("added"), object: nil, queue: nil) { _ in
             self.fetchFromDatabase()
@@ -53,9 +79,7 @@ class PomodoroViewController: UIViewController {
     }
     
     @objc func leftBarButtonTapped() {
-        
         if pomodoros.count != 0 {
-            
             let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
             
             let deleteButton = UIAlertAction(title: "Delete", style: .default) { _ in
@@ -75,7 +99,6 @@ class PomodoroViewController: UIViewController {
     }
     
     @objc func rightBarButtonTapped() {
-        
         navigationItem.rightBarButtonItem?.isEnabled = false
         view.backgroundColor = .gray
         
@@ -101,6 +124,8 @@ class PomodoroViewController: UIViewController {
     }
 }
 
+// Tableview delegate and datasource
+
 extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pomodoros.count
@@ -112,8 +137,6 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
         let pomodoro = pomodoros[indexPath.row]
         
         cell.nameLabel.text = pomodoro.name
-        
-        
         cell.workTimeLabel.text = "Work Time: \(pomodoro.work_time_hour!):\(pomodoro.work_time_min!)"
         cell.breakTimeLabel.text = "Break Time: \(pomodoro.break_time_hour!):\(pomodoro.break_time_min!)"
         return cell
@@ -125,10 +148,6 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
         let detailVc = PomodoroDetailViewController()
         detailVc.selectedPomodoro = pomodoros[indexPath.row]
         navigationController?.pushViewController(detailVc, animated: true)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -148,5 +167,24 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
             break
             
         }
+    }
+}
+
+extension PomodoroViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else {
+            filteredPomodoros.removeAll()
+            isSearching = false
+            fetchFromDatabase()
+            return
+        }
+        
+        isSearching = true
+        fetchFromDatabase()
+        filteredPomodoros = pomodoros.filter { $0.name!.contains(filter) }
+        pomodoros = filteredPomodoros
+        
+        pomodoroTableView.reloadData()
     }
 }

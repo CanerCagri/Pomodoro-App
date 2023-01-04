@@ -22,6 +22,13 @@
 		01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */; };
 		01D5B16D296345EC00A6B4A4 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */; };
 		01D5B16F2963460900A6B4A4 /* TimeInterval+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B16E2963460900A6B4A4 /* TimeInterval+Ext.swift */; };
+		01D5B1742964B57D00A6B4A4 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1732964B57D00A6B4A4 /* UIView+Ext.swift */; };
+		01D5B1762964B66B00A6B4A4 /* PAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1752964B66B00A6B4A4 /* PAButton.swift */; };
+		01D5B1792964B89700A6B4A4 /* PATitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1782964B89700A6B4A4 /* PATitleLabel.swift */; };
+		01D5B17B2964B9A600A6B4A4 /* PALabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B17A2964B9A600A6B4A4 /* PALabel.swift */; };
+		01D5B17D2965F82F00A6B4A4 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B17C2965F82F00A6B4A4 /* UITableView+Ext.swift */; };
+		01D5B1802965FEF500A6B4A4 /* PATextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B17F2965FEF500A6B4A4 /* PATextField.swift */; };
+		01D5B1832965FFFA00A6B4A4 /* PADatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1822965FFFA00A6B4A4 /* PADatePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +49,13 @@
 		01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroDetailViewController.swift; sourceTree = "<group>"; };
 		01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
 		01D5B16E2963460900A6B4A4 /* TimeInterval+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TimeInterval+Ext.swift"; sourceTree = "<group>"; };
+		01D5B1732964B57D00A6B4A4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		01D5B1752964B66B00A6B4A4 /* PAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PAButton.swift; sourceTree = "<group>"; };
+		01D5B1782964B89700A6B4A4 /* PATitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PATitleLabel.swift; sourceTree = "<group>"; };
+		01D5B17A2964B9A600A6B4A4 /* PALabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PALabel.swift; sourceTree = "<group>"; };
+		01D5B17C2965F82F00A6B4A4 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
+		01D5B17F2965FEF500A6B4A4 /* PATextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PATextField.swift; sourceTree = "<group>"; };
+		01D5B1822965FFFA00A6B4A4 /* PADatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PADatePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,16 +88,13 @@
 		01D5B13E2959F9FF00A6B4A4 /* Pomodoro-App */ = {
 			isa = PBXGroup;
 			children = (
+				01D5B172296358D900A6B4A4 /* SupportingFiles */,
 				01D5B16B296345D600A6B4A4 /* Extensions */,
 				01D5B166295C798900A6B4A4 /* Manager */,
 				01D5B160295B358400A6B4A4 /* CustomComponents */,
 				01D5B15D295B30E400A6B4A4 /* ViewModels */,
 				01D5B15C295B28DE00A6B4A4 /* Controllers */,
 				01D5B15B295B289800A6B4A4 /* Views */,
-				01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */,
-				01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */,
-				01D5B1482959FA0100A6B4A4 /* Assets.xcassets */,
-				01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */,
 				01D5B14D2959FA0100A6B4A4 /* Info.plist */,
 				01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */,
 			);
@@ -120,8 +131,11 @@
 		01D5B160295B358400A6B4A4 /* CustomComponents */ = {
 			isa = PBXGroup;
 			children = (
+				01D5B17E2965FEE600A6B4A4 /* TextFields */,
+				01D5B1772964B88C00A6B4A4 /* Labels */,
 				01D5B1712963463200A6B4A4 /* Buttons */,
 				01D5B1702963462400A6B4A4 /* Popups */,
+				01D5B1812965FFE400A6B4A4 /* DatePickers */,
 			);
 			path = CustomComponents;
 			sourceTree = "<group>";
@@ -139,6 +153,8 @@
 			children = (
 				01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */,
 				01D5B16E2963460900A6B4A4 /* TimeInterval+Ext.swift */,
+				01D5B1732964B57D00A6B4A4 /* UIView+Ext.swift */,
+				01D5B17C2965F82F00A6B4A4 /* UITableView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -154,8 +170,45 @@
 		01D5B1712963463200A6B4A4 /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
+				01D5B1752964B66B00A6B4A4 /* PAButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		01D5B172296358D900A6B4A4 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */,
+				01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */,
+				01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */,
+				01D5B1482959FA0100A6B4A4 /* Assets.xcassets */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		01D5B1772964B88C00A6B4A4 /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B1782964B89700A6B4A4 /* PATitleLabel.swift */,
+				01D5B17A2964B9A600A6B4A4 /* PALabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		01D5B17E2965FEE600A6B4A4 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B17F2965FEF500A6B4A4 /* PATextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
+		01D5B1812965FFE400A6B4A4 /* DatePickers */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B1822965FFFA00A6B4A4 /* PADatePicker.swift */,
+			);
+			path = DatePickers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,13 +284,20 @@
 				01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */,
 				01D5B168295C79AB00A6B4A4 /* PersistenceManager.swift in Sources */,
 				01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */,
+				01D5B17D2965F82F00A6B4A4 /* UITableView+Ext.swift in Sources */,
 				01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */,
+				01D5B17B2964B9A600A6B4A4 /* PALabel.swift in Sources */,
+				01D5B1742964B57D00A6B4A4 /* UIView+Ext.swift in Sources */,
 				01D5B162295B359000A6B4A4 /* PomodoroPopup.swift in Sources */,
 				01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */,
 				01D5B16F2963460900A6B4A4 /* TimeInterval+Ext.swift in Sources */,
+				01D5B1832965FFFA00A6B4A4 /* PADatePicker.swift in Sources */,
 				01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */,
+				01D5B1792964B89700A6B4A4 /* PATitleLabel.swift in Sources */,
+				01D5B1802965FEF500A6B4A4 /* PATextField.swift in Sources */,
 				01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */,
 				01D5B1582959FB7100A6B4A4 /* ToDoListViewController.swift in Sources */,
+				01D5B1762964B66B00A6B4A4 /* PAButton.swift in Sources */,
 				01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */,
 				01D5B1542959FAD600A6B4A4 /* MainTabBarVc.swift in Sources */,
 				01D5B16D296345EC00A6B4A4 /* Int+Ext.swift in Sources */,

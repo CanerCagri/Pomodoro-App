@@ -17,77 +17,24 @@ class PomodoroPopup: UIView {
         return v
     }()
     
-    private let addPomodoroLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textAlignment = .center
-        label.text = "Add Pomodoro"
-        return label
-    }()
+    private let addPomodoroLabel = PALabel(textAlignment: .center, fontSize: 20)
+    private let pomodoroNameTextField = PATextField()
+    private let pomodoroTimeLabel = PALabel(textAlignment: .center, fontSize: 20)
+    private let pomodoroPicker = PADatePicker()
+    private let breakTimeLabel = PALabel(textAlignment: .center, fontSize: 17)
+    private let breakTimePicker = PADatePicker()
     
-    private let pomodoroNameTextField: UITextField = {
-        var text = UITextField()
-        text.translatesAutoresizingMaskIntoConstraints = false
-        text.leftViewMode = .always
-        text.textAlignment = .center
-        text.layer.borderWidth = 2
-        text.layer.borderColor = UIColor.systemGray4.cgColor
-        text.layer.cornerRadius = 10
-        text.textColor = .label
-        text.tintColor = .label
-        text.font = UIFont.preferredFont(forTextStyle: .title2)
-        text.adjustsFontSizeToFitWidth = true
-        text.minimumFontSize = 12
-        text.backgroundColor = .tertiarySystemBackground
-        text.autocorrectionType = .no
-        text.returnKeyType = .go
-        text.clearButtonMode = .whileEditing
-        text.attributedPlaceholder = NSAttributedString(string:"Enter a name", attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: "Times New Roman", size: 20)!])
-        return text
-    }()
-    
-    private let pomodoroPicker: UIDatePicker = {
-        var picker = UIDatePicker()
-        picker.datePickerMode = .countDownTimer
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        return picker
-    }()
-    
-    private let breakTimeLabel: UILabel = {
-        var label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 15, weight: .bold)
-        label.textAlignment = .center
-        label.text = "Choose Break Time"
-        return label
-    }()
-    
-    private let breakTimePicker: UIDatePicker = {
-        var picker = UIDatePicker()
-        picker.datePickerMode = .countDownTimer
-        picker.translatesAutoresizingMaskIntoConstraints = false
-        return picker
-    }()
-    
-    private let saveButton: UIButton = {
-        var button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.configuration = .filled()
-        button.configuration?.cornerStyle = .medium
-        button.configuration?.baseBackgroundColor = .blue
-        button.configuration?.baseForegroundColor = .white
-        button.configuration?.title = "SAVE"
-        button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        return button
-    }()
+    private let saveButton = PAButton(title: "SAVE", color: .systemPink, systemImageName: "checkmark.circle")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.gray.withAlphaComponent(0.6)
         self.frame = UIScreen.main.bounds
         containerView.largeContentTitle = "Add Pomodoro"
+        breakTimeLabel.text = "Choose Break Time"
+        addPomodoroLabel.text = "Add Pomodoro"
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateOut)))
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
         applyConstraints()
         animateIn()
     }
@@ -97,7 +44,6 @@ class PomodoroPopup: UIView {
     }
     
     @objc func animateOut() {
-        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseIn) {
             self.containerView.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
             self.alpha = 0
@@ -110,7 +56,6 @@ class PomodoroPopup: UIView {
     }
     
     @objc func animateIn() {
-        
         self.containerView.transform = CGAffineTransform(translationX: 0, y: -self.frame.height)
         self.alpha = 0
         
@@ -121,7 +66,6 @@ class PomodoroPopup: UIView {
     }
     
     @objc func saveButtonTapped() {
-        
         guard let name = pomodoroNameTextField.text, !name.isEmpty else { return }
         
         let calendar = Calendar.current
@@ -132,8 +76,8 @@ class PomodoroPopup: UIView {
         let breakTimeComponents = calendar.dateComponents([.hour, .minute], from: breakTimePicker.date)
         let breakHour = breakTimeComponents.hour
         let breakMin = breakTimeComponents.minute
-        
-        if pomoMin != 0 || breakMin != 0 {
+
+        if pomoMin != 0 && breakMin != 0 {
             
             let pomodoroHour = String(format: "%02d", pomoHour!)
             let pomodoroMin = String(format: "%02d", pomoMin!)
@@ -153,7 +97,7 @@ class PomodoroPopup: UIView {
                 }
             }
         } else {
-            return
+            return // TODO
         }
     }
     
@@ -164,13 +108,8 @@ class PomodoroPopup: UIView {
         containerView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         containerView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.82).isActive = true
         containerView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.62).isActive = true
-        
-        containerView.addSubview(pomodoroNameTextField)
-        containerView.addSubview(addPomodoroLabel)
-        containerView.addSubview(pomodoroPicker)
-        containerView.addSubview(breakTimeLabel)
-        containerView.addSubview(breakTimePicker)
-        containerView.addSubview(saveButton)
+    
+        containerView.addSubviews(pomodoroNameTextField, addPomodoroLabel, pomodoroPicker, breakTimeLabel, breakTimePicker, saveButton)
         
         addPomodoroLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         addPomodoroLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
@@ -189,7 +128,7 @@ class PomodoroPopup: UIView {
         
         breakTimeLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         breakTimeLabel.topAnchor.constraint(equalTo: pomodoroPicker.bottomAnchor, constant: 10).isActive = true
-        breakTimeLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        breakTimeLabel.widthAnchor.constraint(equalToConstant: 250).isActive = true
         breakTimeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         breakTimePicker.topAnchor.constraint(equalTo: breakTimeLabel.bottomAnchor, constant: 5).isActive = true

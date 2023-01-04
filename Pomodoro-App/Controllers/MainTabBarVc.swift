@@ -21,9 +21,9 @@ class MainTabBarVc: UITabBarController {
         vc1.title = "Pomodoro"
         vc2.title = "ToDo List"
         
-
         tabBar.tintColor = .label
-        tabBar.backgroundColor = .systemGreen
+        tabBar.backgroundColor = .secondarySystemBackground
+     
         setViewControllers([vc1, vc2], animated: true)
     }
 }
