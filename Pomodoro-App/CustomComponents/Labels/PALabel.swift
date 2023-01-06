@@ -22,16 +22,23 @@ class PALabel: UILabel {
         super.init(frame: .zero)
         self.textAlignment = textAlignment
         self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        self.textColor = .label
+        configure()
+    }
+    
+    init(textAlignment: NSTextAlignment, fontSize: CGFloat, textColor: UIColor) {
+        super.init(frame: .zero)
+        self.textAlignment = textAlignment
+        self.font = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        self.textColor = textColor
         configure()
     }
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        textColor = .label
+        
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail
     }
 }
-
-

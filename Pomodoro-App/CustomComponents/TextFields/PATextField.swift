@@ -18,14 +18,18 @@ class PATextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
+    init(placeholder: String) {
+        super.init(frame: .zero)
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: "Times New Roman", size: 20)!])
+        configure()
+    }
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.borderWidth = 2
         layer.borderColor = UIColor.systemGray4.cgColor
         layer.cornerRadius = 10
-        
-        //Label color is making in light mode "black", in dark mode "white"
         textColor = .label
         tintColor = .label
         textAlignment = .center
@@ -37,7 +41,7 @@ class PATextField: UITextField {
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing
-//        placeholder = "Enter a username or user url"
-        attributedPlaceholder = NSAttributedString(string:"Enter a pomodoro name", attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: "Times New Roman", size: 20)!])
+        
+        
     }
 }

@@ -31,14 +31,12 @@ class PAButton: UIButton {
     }
     
     func set(color: UIColor, title: String, systemImageName: String) {
-        
         configuration?.baseBackgroundColor = color
         configuration?.baseForegroundColor = .white
         
         var container = AttributeContainer()
         container.font = UIFont(name: "GillSans-SemiBold", size: 22)
         configuration?.attributedTitle = AttributedString(title, attributes: container)
-        
         
         configuration?.image = UIImage(systemName: systemImageName)
         configuration?.imagePadding = 5

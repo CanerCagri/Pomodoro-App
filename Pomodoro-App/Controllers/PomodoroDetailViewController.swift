@@ -43,8 +43,8 @@ class PomodoroDetailViewController: UIViewController {
     
     // UI Components
     
-    private let titleLabel = PATitleLabel(textAlignment: .center, fontSize: 25)
-    private let pomodoroLabel = PALabel(textAlignment: .center, fontSize: 25)
+    private let titleLabel = PATitleLabel(textAlignment: .center, fontSize: 34)
+    private let pomodoroLabel = PALabel(textAlignment: .center, fontSize: 30)
     private let nextTimeLabel = PALabel(textAlignment: .center, fontSize: 21)
     
     private let startButton = PAButton(title: "Start", color: .systemPink, systemImageName: "play.fill")
@@ -90,7 +90,7 @@ class PomodoroDetailViewController: UIViewController {
         let red = CGFloat.random(in: 0...1)
         let green = CGFloat.random(in: 0...1)
         let blue = CGFloat.random(in: 0...1)
-        let size = CGFloat.random(in: 20...25)
+        let size = CGFloat.random(in: 30...37)
         
         UIView.animate(withDuration: timeLeft) { [weak self] in
             self?.titleLabel.textColor = UIColor(red: red, green: green, blue: blue, alpha: 1.0)

@@ -20,9 +20,9 @@ class PomodoroViewController: UIViewController {
         return tableView
     }()
     
-    private let searchController: UISearchController = {
+    let searchController: UISearchController = {
         var controller = UISearchController()
-        controller.searchBar.placeholder = "Search for a pomodoro with name"
+        controller.searchBar.placeholder = "Search with a pomodoro name"
         controller.searchBar.searchBarStyle = .minimal
         controller.obscuresBackgroundDuringPresentation = false
         return controller
@@ -75,6 +75,8 @@ class PomodoroViewController: UIViewController {
         }
         NotificationCenter.default.addObserver(forName: NSNotification.Name("animateOut"), object: nil, queue: nil) { _ in
             self.navigationItem.rightBarButtonItem?.isEnabled = true
+            self.pomodoroTableView.isHidden = false
+            self.searchController.searchBar.isHidden = false
         }
     }
     
@@ -105,7 +107,10 @@ class PomodoroViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
             let popup = PomodoroPopup()
             self.view.addSubview(popup)
+            self.pomodoroTableView.isHidden = true
+            self.searchController.searchBar.isHidden = true
         }
+    
     }
     
     private func fetchFromDatabase() {

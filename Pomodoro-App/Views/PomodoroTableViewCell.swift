@@ -41,7 +41,6 @@ class PomodoroTableViewCell: UITableViewCell {
             workTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
             workTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
             workTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
-            workTimeLabel.widthAnchor.constraint(equalToConstant: 150),
             workTimeLabel.heightAnchor.constraint(equalToConstant: 30),
         ]
         
@@ -50,7 +49,7 @@ class PomodoroTableViewCell: UITableViewCell {
             breakTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
             breakTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
             breakTimeLabel.heightAnchor.constraint(equalToConstant: 30),
-            breakTimeLabel.widthAnchor.constraint(equalToConstant: 150),
+          
         ]
         
         NSLayoutConstraint.activate(nameLabelConstraints)

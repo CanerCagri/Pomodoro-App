@@ -21,7 +21,7 @@ class PADatePicker: UIDatePicker {
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         datePickerMode = .countDownTimer
+        setValue(UIColor.tertiarySystemBackground, forKey: "textColor")
+        layer.cornerRadius = 12
     }
-    
-    
 }
