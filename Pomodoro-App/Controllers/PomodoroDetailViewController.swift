@@ -10,10 +10,13 @@ import AVFoundation
 
 class PomodoroDetailViewController: UIViewController {
     
-    // Timer finish sound
+    //Variables
     
     var finishTimeAudioPlayer: AVAudioPlayer?
-    let soundURL = URL(fileURLWithPath: "/path/to/sound/file.mp3") // TO DO
+    var isStartTapped = false
+    var isStopTapped = false
+    var isBreakTime = false
+    var repeatCounter = 0
     
     // Animation
     
@@ -23,14 +26,18 @@ class PomodoroDetailViewController: UIViewController {
     var endTime: Date?
     var animationTimer: Timer!
     let strokeIt = CABasicAnimation(keyPath: "strokeEnd")
+    var offSetTime = 0
     
-    //Variables
+    // UI Components
     
-    var tempTime = 0
-    var isStartTapped = false
-    var isBreakTime = false
+    private let titleLabel = PATitleLabel(textAlignment: .center, fontSize: 34)
+    private let pomodoroLabel = PALabel(textAlignment: .center, fontSize: 30)
+    private let nextTimeLabel = PALabel(textAlignment: .center, fontSize: 21, textColor: .systemGray)
+    private let repeatedTimeLabel = PALabel(textAlignment: .center, fontSize: 25, textColor: .systemGreen)
     
-    //Selected pomodoro details
+    private let startButton = PAButton(title: "Start", color: .systemPink, systemImageName: "play.fill")
+    private let stopButton = PAButton(title: "Pause", color: .systemPink, systemImageName: "stop.fill")
+    private let resetButton = PAButton(title: "Restart", color: .systemPink, systemImageName: "restart.circle.fill")
     
     var selectedPomodoro: PomodoroItem? {
         didSet {
@@ -38,19 +45,9 @@ class PomodoroDetailViewController: UIViewController {
             pomodoroLabel.text = "\(selectedPomodoro?.work_time_hour ?? ""):\(selectedPomodoro?.work_time_min ?? "")"
             nextTimeLabel.text = "\(selectedPomodoro?.break_time_hour ?? ""):\(selectedPomodoro?.break_time_min ?? "")"
             convertTextToMin(pomodoroTime: pomodoroLabel.text!)
+            repeatedTimeLabel.text = (selectedPomodoro?.repeat_time)!
         }
     }
-    
-    // UI Components
-    
-    private let titleLabel = PATitleLabel(textAlignment: .center, fontSize: 34)
-    private let pomodoroLabel = PALabel(textAlignment: .center, fontSize: 30)
-    private let nextTimeLabel = PALabel(textAlignment: .center, fontSize: 21)
-    
-    private let startButton = PAButton(title: "Start", color: .systemPink, systemImageName: "play.fill")
-    private let stopButton = PAButton(title: "Pause", color: .systemPink, systemImageName: "stop.fill")
-    private let resetButton = PAButton(title: "Restart", color: .systemPink, systemImageName: "restart.circle.fill")
-    
 
     // Viewcontroller Lifecycle methods
     
@@ -60,17 +57,14 @@ class PomodoroDetailViewController: UIViewController {
         
         addConstraints()
         addAnimation()
-        configureActionsOfButtons()
-    }
-    
-    // Functions
-    
-    private func configureActionsOfButtons() {
+        
         startButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         stopButton.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         resetButton.addTarget(self, action: #selector(resetButtonTapped), for: .touchUpInside)
     }
     
+    // Functions
+
     private func addAnimation() {
         bgShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY - 100), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
         bgShapeLayer.strokeColor = UIColor.systemBlue.cgColor
@@ -110,7 +104,7 @@ class PomodoroDetailViewController: UIViewController {
         
         let totalMinutes = hours * 60 + minutes
         timeLeft = TimeInterval(totalMinutes * 60)
-        tempTime = totalMinutes * 60
+        offSetTime = totalMinutes * 60
     }
     
     @objc func updateTime() {
@@ -122,9 +116,17 @@ class PomodoroDetailViewController: UIViewController {
             isBreakTime.toggle()
             pomodoroLabel.text = "00:00:00"
             animationTimer.invalidate()
-            finishSound()
+            startFinishSound()
+            
+            if titleLabel.text == "Break Time! 👏" {
+                repeatCounter = Int(repeatedTimeLabel.text!)! + 1
+                PersistenceManager.shared.saveRepeatTime(newRepeatedValue: String(repeatCounter), id: (selectedPomodoro?.id)!)
+                repeatedTimeLabel.text = String(repeatCounter)
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                self?.finishTimeAudioPlayer?.stop()
+                
                 if self?.isBreakTime == true {
                     self?.breakTimeTrue()
                     
@@ -153,12 +155,9 @@ class PomodoroDetailViewController: UIViewController {
         isStartTapped = false
     }
     
-    private func buttonsControls() {
+    private func startFinishSound() {
+        guard let soundURL = Bundle.main.url(forResource: "ringing", withExtension: "mp3") else { return }
         
-    }
-    
-    
-    private func finishSound() {
         do {
             finishTimeAudioPlayer = try AVAudioPlayer(contentsOf: soundURL)
             finishTimeAudioPlayer?.play()
@@ -169,13 +168,14 @@ class PomodoroDetailViewController: UIViewController {
     
     @objc func startButtonTapped() {
         if !isStartTapped {
+            timeLeft = 5
             strokeIt.fromValue = 0
             strokeIt.toValue = 1
             strokeIt.duration = timeLeft
-            strokeIt.timeOffset = Double(tempTime) - timeLeft
+            strokeIt.timeOffset = Double(offSetTime) - timeLeft
             
             timeLeftShapeLayer.add(strokeIt, forKey: "countDown")
-            // define the future end time by adding the timeLeft to now Date()
+          
             endTime = Date().addingTimeInterval(timeLeft)
             
             animationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -188,28 +188,33 @@ class PomodoroDetailViewController: UIViewController {
     }
     
     @objc func stopButtonTapped() {
-        isStartTapped = false
-        animationTimer.invalidate()
-        timeLeftShapeLayer.removeAnimation(forKey: "countDown")
-        
+        if isStartTapped {
+            isStartTapped = false
+            isStopTapped = true
+            animationTimer.invalidate()
+            timeLeftShapeLayer.removeAnimation(forKey: "countDown")
+        }
     }
     
     @objc func resetButtonTapped() {
-        isStartTapped = false
-        animationTimer.invalidate()
-        timeLeftShapeLayer.removeAnimation(forKey: "countDown")
-        if isBreakTime == true {
-            breakTimeTrue()
-            
-        } else {
-            breakTimeFalse()
+        if isStartTapped || isStopTapped {
+            isStartTapped = false
+            isStopTapped = false
+            animationTimer.invalidate()
+            timeLeftShapeLayer.removeAnimation(forKey: "countDown")
+            if isBreakTime == true {
+                breakTimeTrue()
+                
+            } else {
+                breakTimeFalse()
+            }
         }
     }
     
     // Layout Constraints
     
     private func addConstraints() {
-        view.addSubviews(titleLabel, pomodoroLabel, nextTimeLabel, startButton, stopButton, resetButton)
+        view.addSubviews(titleLabel, pomodoroLabel, nextTimeLabel, repeatedTimeLabel, startButton, stopButton, resetButton)
         
         let titleLabelConstraints = [
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -220,40 +225,45 @@ class PomodoroDetailViewController: UIViewController {
             pomodoroLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             pomodoroLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
             pomodoroLabel.widthAnchor.constraint(equalToConstant: 300),
-            pomodoroLabel.heightAnchor.constraint(equalToConstant: 300),
         ]
         
         let nextTimeLabelConstraints = [
             nextTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             nextTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -70),
             nextTimeLabel.widthAnchor.constraint(equalToConstant: 300),
-            nextTimeLabel.heightAnchor.constraint(equalToConstant: 300),
+        ]
+        
+        let repeatedTimeLabelConstraints = [
+            repeatedTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            repeatedTimeLabel.topAnchor.constraint(equalTo: nextTimeLabel.bottomAnchor, constant: 2),
+            repeatedTimeLabel.widthAnchor.constraint(equalToConstant: 300),
         ]
         
         let startButtonConstraints = [
-            startButton.topAnchor.constraint(equalTo: pomodoroLabel.bottomAnchor, constant: 10),
-            startButton.leadingAnchor.constraint(equalTo: pomodoroLabel.leadingAnchor),
+            startButton.topAnchor.constraint(equalTo: repeatedTimeLabel.bottomAnchor, constant: 50),
+            startButton.leadingAnchor.constraint(equalTo: repeatedTimeLabel.leadingAnchor),
             startButton.heightAnchor.constraint(equalToConstant: 85),
-            startButton.widthAnchor.constraint(equalTo: pomodoroLabel.widthAnchor, multiplier: 0.47),
+            startButton.widthAnchor.constraint(equalTo: repeatedTimeLabel.widthAnchor, multiplier: 0.47),
         ]
         
         let stopButtonConstraints = [
-            stopButton.topAnchor.constraint(equalTo: pomodoroLabel.bottomAnchor, constant: 10),
-            stopButton.trailingAnchor.constraint(equalTo: pomodoroLabel.trailingAnchor),
+            stopButton.topAnchor.constraint(equalTo: repeatedTimeLabel.bottomAnchor, constant: 50),
+            stopButton.trailingAnchor.constraint(equalTo: repeatedTimeLabel.trailingAnchor),
             stopButton.heightAnchor.constraint(equalToConstant: 85),
-            stopButton.widthAnchor.constraint(equalTo: pomodoroLabel.widthAnchor, multiplier: 0.47),
+            stopButton.widthAnchor.constraint(equalTo: repeatedTimeLabel.widthAnchor, multiplier: 0.47),
         ]
         
         let resetButtonConstraints = [
             resetButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resetButton.topAnchor.constraint(equalTo: stopButton.bottomAnchor, constant: 10),
             resetButton.heightAnchor.constraint(equalToConstant: 85),
-            resetButton.widthAnchor.constraint(equalTo: pomodoroLabel.widthAnchor, multiplier: 0.47),
+            resetButton.widthAnchor.constraint(equalTo: repeatedTimeLabel.widthAnchor, multiplier: 0.47),
         ]
         
         NSLayoutConstraint.activate(titleLabelConstraints)
         NSLayoutConstraint.activate(pomodoroLabelConstraints)
         NSLayoutConstraint.activate(nextTimeLabelConstraints)
+        NSLayoutConstraint.activate(repeatedTimeLabelConstraints)
         NSLayoutConstraint.activate(startButtonConstraints)
         NSLayoutConstraint.activate(stopButtonConstraints)
         NSLayoutConstraint.activate(resetButtonConstraints)

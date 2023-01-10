@@ -11,9 +11,10 @@ class PomodoroTableViewCell: UITableViewCell {
     
     static let identifier = "PomodoroTableViewCell"
 
-    var nameLabel = PATitleLabel(textAlignment: .left, fontSize: 22)
-    var workTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
-    var breakTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
+    var nameLabel = PATitleLabel(textAlignment: .left, fontSize: 18)
+    var workTimeLabel = PALabel(textAlignment: .center, fontSize: 13)
+    var breakTimeLabel = PALabel(textAlignment: .center, fontSize: 13)
+    var repeatedTimeLabel = PALabel(textAlignment: .center, fontSize: 13)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -27,7 +28,7 @@ class PomodoroTableViewCell: UITableViewCell {
     }
     
     private func applyConstraints() {
-        contentView.addSubviews(nameLabel, workTimeLabel, breakTimeLabel)
+        contentView.addSubviews(nameLabel, workTimeLabel, breakTimeLabel, repeatedTimeLabel)
         accessoryType = .disclosureIndicator
         
         let nameLabelConstraints = [
@@ -38,22 +39,24 @@ class PomodoroTableViewCell: UITableViewCell {
         ]
         
         let workTimeLabelConstraints = [
-            workTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
             workTimeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
-            workTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
-            workTimeLabel.heightAnchor.constraint(equalToConstant: 30),
+            workTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 70),
         ]
         
-        let breakTimeLabel = [
-            breakTimeLabel.topAnchor.constraint(equalTo: workTimeLabel.bottomAnchor, constant: 5),
-            breakTimeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
-            breakTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 5),
-            breakTimeLabel.heightAnchor.constraint(equalToConstant: 30),
-          
+        let breakTimeLabelConstarints = [
+            breakTimeLabel.topAnchor.constraint(equalTo: workTimeLabel.bottomAnchor, constant: 7),
+            breakTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 70),
+        ]
+        
+        let repeatedTimeLabelConstraints = [
+            repeatedTimeLabel.topAnchor.constraint(equalTo: breakTimeLabel.bottomAnchor, constant: 7),
+            repeatedTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 70),
+
         ]
         
         NSLayoutConstraint.activate(nameLabelConstraints)
         NSLayoutConstraint.activate(workTimeLabelConstraints)
-        NSLayoutConstraint.activate(breakTimeLabel)
+        NSLayoutConstraint.activate(breakTimeLabelConstarints)
+        NSLayoutConstraint.activate(repeatedTimeLabelConstraints)
     }
 }

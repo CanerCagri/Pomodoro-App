@@ -9,9 +9,11 @@ import Foundation
 
 
 struct PomodoroViewModel {
+    let id = UUID()
     let name: String
     let workTimeHour: String
     let workTimeMin: String
     let breakTimeHour: String
     let breakTimeMin: String
+    let repeatTime: String
 }

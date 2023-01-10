@@ -24,17 +24,39 @@ class PersistenceManager {
         let context = appDelegate.persistentContainer.viewContext
         let item = PomodoroItem(context: context)
         
+        item.id = UUID()
         item.name = model.name
         item.work_time_hour = String(model.workTimeHour)
         item.work_time_min = String(model.workTimeMin)
         item.break_time_hour = String(model.breakTimeHour)
         item.break_time_min = String(model.breakTimeMin)
-    
+        item.repeat_time = String(model.repeatTime)
+        
         do {
             try context.save()
             completion(.success(()))
         } catch {
             completion(.failure(DatabaseError.failedToDataSave))
+        }
+    }
+    
+    func saveRepeatTime(newRepeatedValue: String, id: UUID) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<PomodoroItem>(entityName: "PomodoroItem")
+        fetchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
+            NSPredicate(format: "id = %@", id as CVarArg)
+        ])
+
+        do {
+            let object: [PomodoroItem] = try context.fetch(fetchRequest)
+            guard let objectFirst = object.first else { return }
+            objectFirst.repeat_time = newRepeatedValue
+        
+            try context.save()
+        } catch let error as NSError {
+            print("Error updating attribute: \(error), \(error.userInfo)")
         }
     }
     

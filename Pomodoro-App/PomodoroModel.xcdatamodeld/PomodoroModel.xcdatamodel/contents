@@ -3,7 +3,9 @@
     <entity name="PomodoroItem" representedClassName="PomodoroItem" syncable="YES" codeGenerationType="class">
         <attribute name="break_time_hour" optional="YES" attributeType="String"/>
         <attribute name="break_time_min" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="repeat_time" optional="YES" attributeType="String"/>
         <attribute name="work_time_hour" optional="YES" attributeType="String"/>
         <attribute name="work_time_min" optional="YES" attributeType="String"/>
     </entity>

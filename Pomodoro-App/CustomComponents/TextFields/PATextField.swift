@@ -30,14 +30,14 @@ class PATextField: UITextField {
         layer.borderWidth = 2
         layer.borderColor = UIColor.systemGray4.cgColor
         layer.cornerRadius = 10
-        textColor = .label
+        textColor = .systemBackground
         tintColor = .label
         textAlignment = .center
         font = UIFont.preferredFont(forTextStyle: .title2)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         
-        backgroundColor = .tertiarySystemBackground
+//        backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing

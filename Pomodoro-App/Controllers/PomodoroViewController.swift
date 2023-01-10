@@ -40,6 +40,7 @@ class PomodoroViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
+        pomodoroTableView.reloadData()
     }
     
     override func viewWillLayoutSubviews() {
@@ -84,7 +85,7 @@ class PomodoroViewController: UIViewController {
         if pomodoros.count != 0 {
             let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
             
-            let deleteButton = UIAlertAction(title: "Delete", style: .default) { _ in
+            let deleteButton = UIAlertAction(title: "OK", style: .default) { _ in
                 PersistenceManager.shared.deleteAllPomodoros()
                 self.pomodoros.removeAll()
                 self.pomodoroTableView.reloadData()
@@ -142,8 +143,9 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
         let pomodoro = pomodoros[indexPath.row]
         
         cell.nameLabel.text = pomodoro.name
-        cell.workTimeLabel.text = "Work Time: \(pomodoro.work_time_hour!):\(pomodoro.work_time_min!)"
-        cell.breakTimeLabel.text = "Break Time: \(pomodoro.break_time_hour!):\(pomodoro.break_time_min!)"
+        cell.workTimeLabel.text = "💪 \(pomodoro.work_time_hour!):\(pomodoro.work_time_min!)"
+        cell.breakTimeLabel.text = "👏 \(pomodoro.break_time_hour!):\(pomodoro.break_time_min!)"
+        cell.repeatedTimeLabel.text = "🔁      \(pomodoro.repeat_time!)"
         return cell
     }
     

@@ -86,7 +86,7 @@ class PomodoroPopup: UIView {
             let breakTimeHour = String(format: "%02d", breakHour!)
             let breakTimeMin = String(format: "%02d", breakMin!)
             
-            let viewModel = PomodoroViewModel(name: name, workTimeHour: pomodoroHour, workTimeMin: pomodoroMin, breakTimeHour: breakTimeHour, breakTimeMin: breakTimeMin)
+            let viewModel = PomodoroViewModel(name: name, workTimeHour: pomodoroHour, workTimeMin: pomodoroMin, breakTimeHour: breakTimeHour, breakTimeMin: breakTimeMin, repeatTime: "0")
             
             PersistenceManager.shared.downloadWithModel(model: viewModel) { result in
                 switch result {
