@@ -22,13 +22,21 @@ class PATitleLabel: UILabel {
         super.init(frame: .zero)
         self.textAlignment = textAlignment
         self.font = UIFont(name: "GillSans-SemiBold", size: fontSize)
+        self.textColor = .label
+        configure()
+    }
+    
+    init(textAlignment: NSTextAlignment, fontSize: CGFloat, textColor: UIColor) {
+        super.init(frame: .zero)
+        self.textAlignment = textAlignment
+        self.font = UIFont(name: "GillSans-SemiBold", size: fontSize)
+        self.textColor = textColor
         configure()
     }
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         text = "Time To FOCUS! 💪"
-        textColor = .label
         adjustsFontSizeToFitWidth = true
         minimumScaleFactor = 0.9
         lineBreakMode = .byTruncatingTail

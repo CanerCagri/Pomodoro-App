@@ -12,9 +12,9 @@ class PomodoroTableViewCell: UITableViewCell {
     static let identifier = "PomodoroTableViewCell"
 
     var nameLabel = PATitleLabel(textAlignment: .left, fontSize: 18)
-    var workTimeLabel = PALabel(textAlignment: .center, fontSize: 13)
-    var breakTimeLabel = PALabel(textAlignment: .center, fontSize: 13)
-    var repeatedTimeLabel = PALabel(textAlignment: .center, fontSize: 13)
+    var workTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
+    var breakTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
+    var repeatedTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

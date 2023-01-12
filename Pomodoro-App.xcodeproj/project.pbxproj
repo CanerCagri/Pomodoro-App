@@ -8,13 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		01BCDCA3296A183100173AA1 /* ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCA2296A183100173AA1 /* ringing.mp3 */; };
+		01BCDCA7296DAE3A00173AA1 /* AddMusicPopupVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */; };
+		01BCDCA9296DB17000173AA1 /* AddMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */; };
+		01BCDCAD296DB3AE00173AA1 /* nature.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAA296DB3AE00173AA1 /* nature.mp3 */; };
+		01BCDCAE296DB3AE00173AA1 /* water-stream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAB296DB3AE00173AA1 /* water-stream.wav */; };
+		01BCDCAF296DB3AE00173AA1 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAC296DB3AE00173AA1 /* rain.mp3 */; };
 		01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */; };
 		01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */; };
 		01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B1482959FA0100A6B4A4 /* Assets.xcassets */; };
 		01D5B14C2959FA0100A6B4A4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */; };
 		01D5B1542959FAD600A6B4A4 /* MainTabBarVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */; };
 		01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */; };
-		01D5B1582959FB7100A6B4A4 /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1572959FB7100A6B4A4 /* ToDoListViewController.swift */; };
+		01D5B1582959FB7100A6B4A4 /* AddMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */; };
 		01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */; };
 		01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B15E295B30F000A6B4A4 /* PomodoroViewModel.swift */; };
 		01D5B162295B359000A6B4A4 /* PomodoroPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */; };
@@ -34,6 +39,11 @@
 
 /* Begin PBXFileReference section */
 		01BCDCA2296A183100173AA1 /* ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringing.mp3; sourceTree = "<group>"; };
+		01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicPopupVc.swift; sourceTree = "<group>"; };
+		01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicTableViewCell.swift; sourceTree = "<group>"; };
+		01BCDCAA296DB3AE00173AA1 /* nature.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nature.mp3; path = "Pomodoro-App/Sounds/nature.mp3"; sourceTree = SOURCE_ROOT; };
+		01BCDCAB296DB3AE00173AA1 /* water-stream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "water-stream.wav"; path = "Pomodoro-App/Sounds/water-stream.wav"; sourceTree = SOURCE_ROOT; };
+		01BCDCAC296DB3AE00173AA1 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = rain.mp3; path = "Pomodoro-App/Sounds/rain.mp3"; sourceTree = SOURCE_ROOT; };
 		01D5B13C2959F9FF00A6B4A4 /* Pomodoro-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pomodoro-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,7 +52,7 @@
 		01D5B14D2959FA0100A6B4A4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVc.swift; sourceTree = "<group>"; };
 		01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewController.swift; sourceTree = "<group>"; };
-		01D5B1572959FB7100A6B4A4 /* ToDoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListViewController.swift; sourceTree = "<group>"; };
+		01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicViewController.swift; sourceTree = "<group>"; };
 		01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTableViewCell.swift; sourceTree = "<group>"; };
 		01D5B15E295B30F000A6B4A4 /* PomodoroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewModel.swift; sourceTree = "<group>"; };
 		01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPopup.swift; sourceTree = "<group>"; };
@@ -71,6 +81,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01BCDCA4296DAE0F00173AA1 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */,
+				01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */,
+				01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */,
+				01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		01BCDCA5296DAE1D00173AA1 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
 		01D5B1332959F9FF00A6B4A4 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */,
+				01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,10 +144,8 @@
 		01D5B15C295B28DE00A6B4A4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				01D5B1552959FB6600A6B4A4 /* PomodoroViewController.swift */,
-				01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */,
-				01D5B1572959FB7100A6B4A4 /* ToDoListViewController.swift */,
-				01D5B1532959FAD600A6B4A4 /* MainTabBarVc.swift */,
+				01BCDCA4296DAE0F00173AA1 /* Core */,
+				01BCDCA5296DAE1D00173AA1 /* General */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -181,6 +209,9 @@
 			isa = PBXGroup;
 			children = (
 				01BCDCA2296A183100173AA1 /* ringing.mp3 */,
+				01BCDCAA296DB3AE00173AA1 /* nature.mp3 */,
+				01BCDCAC296DB3AE00173AA1 /* rain.mp3 */,
+				01BCDCAB296DB3AE00173AA1 /* water-stream.wav */,
 				01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */,
 				01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */,
 				01D5B14A2959FA0100A6B4A4 /* LaunchScreen.storyboard */,
@@ -273,8 +304,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				01BCDCA3296A183100173AA1 /* ringing.mp3 in Resources */,
+				01BCDCAE296DB3AE00173AA1 /* water-stream.wav in Resources */,
+				01BCDCAF296DB3AE00173AA1 /* rain.mp3 in Resources */,
 				01D5B14C2959FA0100A6B4A4 /* LaunchScreen.storyboard in Resources */,
 				01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */,
+				01BCDCAD296DB3AE00173AA1 /* nature.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +326,7 @@
 				01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */,
 				01D5B17B2964B9A600A6B4A4 /* PALabel.swift in Sources */,
 				01D5B1742964B57D00A6B4A4 /* UIView+Ext.swift in Sources */,
+				01BCDCA9296DB17000173AA1 /* AddMusicTableViewCell.swift in Sources */,
 				01D5B162295B359000A6B4A4 /* PomodoroPopup.swift in Sources */,
 				01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */,
 				01D5B16F2963460900A6B4A4 /* TimeInterval+Ext.swift in Sources */,
@@ -300,11 +335,12 @@
 				01D5B1792964B89700A6B4A4 /* PATitleLabel.swift in Sources */,
 				01D5B1802965FEF500A6B4A4 /* PATextField.swift in Sources */,
 				01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */,
-				01D5B1582959FB7100A6B4A4 /* ToDoListViewController.swift in Sources */,
+				01D5B1582959FB7100A6B4A4 /* AddMusicViewController.swift in Sources */,
 				01D5B1762964B66B00A6B4A4 /* PAButton.swift in Sources */,
 				01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */,
 				01D5B1542959FAD600A6B4A4 /* MainTabBarVc.swift in Sources */,
 				01D5B16D296345EC00A6B4A4 /* Int+Ext.swift in Sources */,
+				01BCDCA7296DAE3A00173AA1 /* AddMusicPopupVc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

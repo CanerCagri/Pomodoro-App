@@ -13,13 +13,13 @@ class MainTabBarVc: UITabBarController {
         super.viewDidLoad()
         
         let vc1 = UINavigationController(rootViewController: PomodoroViewController())
-        let vc2 = UINavigationController(rootViewController: ToDoListViewController())
+        let vc2 = UINavigationController(rootViewController: AddMusicViewController())
         
         vc1.tabBarItem.image = UIImage(systemName: "timer")
         vc2.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         
         vc1.title = "Pomodoro"
-        vc2.title = "ToDo List"
+        vc2.title = "Add Music"
         
         tabBar.tintColor = .label
         tabBar.backgroundColor = .secondarySystemBackground

@@ -34,6 +34,8 @@ class PomodoroViewController: UIViewController {
         super.viewDidLoad()
         
         configureViewController()
+        configureTableView()
+        configureSearchController()
         fetchFromDatabase()
     }
     
@@ -60,17 +62,6 @@ class PomodoroViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(leftBarButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
         
-        view.addSubview(pomodoroTableView)
-        pomodoroTableView.delegate = self
-        pomodoroTableView.dataSource = self
-        pomodoroTableView.removeExcessCells()
-        pomodoroTableView.rowHeight = 100
-        
-        navigationItem.hidesSearchBarWhenScrolling = false
-        navigationItem.searchController = searchController
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        
         NotificationCenter.default.addObserver(forName: NSNotification.Name("added"), object: nil, queue: nil) { _ in
             self.fetchFromDatabase()
         }
@@ -79,6 +70,21 @@ class PomodoroViewController: UIViewController {
             self.pomodoroTableView.isHidden = false
             self.searchController.searchBar.isHidden = false
         }
+    }
+    
+    private func configureTableView() {
+        view.addSubview(pomodoroTableView)
+        pomodoroTableView.delegate = self
+        pomodoroTableView.dataSource = self
+        pomodoroTableView.removeExcessCells()
+        pomodoroTableView.rowHeight = 100
+    }
+    
+    private func configureSearchController() {
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
     }
     
     @objc func leftBarButtonTapped() {

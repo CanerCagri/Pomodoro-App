@@ -15,8 +15,14 @@ class PersistenceManager {
         case failedToFetchData
         case failedToDeleteData
     }
-    
+
     static let shared = PersistenceManager()
+    
+    func saveMusicToUserDefaults(with name: String = "Noone") {
+        let defaults = UserDefaults.standard
+        defaults.set(name, forKey: "musicName")
+        print("\(name) song.")
+    }
     
     func downloadWithModel(model: PomodoroViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }

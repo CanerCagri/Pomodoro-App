@@ -12,7 +12,7 @@ class PomodoroDetailViewController: UIViewController {
     
     //Variables
     
-    var finishTimeAudioPlayer: AVAudioPlayer?
+    var audioPlayer: AVAudioPlayer?
     var isStartTapped = false
     var isStopTapped = false
     var isBreakTime = false
@@ -116,7 +116,8 @@ class PomodoroDetailViewController: UIViewController {
             isBreakTime.toggle()
             pomodoroLabel.text = "00:00:00"
             animationTimer.invalidate()
-            startFinishSound()
+            audioPlayer?.stop()
+            startSound(with: "ringing", withExtension: "mp3")
             
             if titleLabel.text == "Break Time! 👏" {
                 repeatCounter = Int(repeatedTimeLabel.text!)! + 1
@@ -125,7 +126,7 @@ class PomodoroDetailViewController: UIViewController {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-                self?.finishTimeAudioPlayer?.stop()
+                self?.audioPlayer?.stop()
                 
                 if self?.isBreakTime == true {
                     self?.breakTimeTrue()
@@ -138,7 +139,7 @@ class PomodoroDetailViewController: UIViewController {
     }
     
     private func breakTimeTrue() {
-        finishTimeAudioPlayer?.stop()
+        audioPlayer?.stop()
         titleLabel.text = "Break Time! 👏"
         pomodoroLabel.text = "\(self.selectedPomodoro?.break_time_hour ?? ""):\(selectedPomodoro?.break_time_min ?? "")"
         nextTimeLabel.text = "\(selectedPomodoro?.work_time_hour ?? ""):\(self.selectedPomodoro?.work_time_min ?? "")"
@@ -147,7 +148,7 @@ class PomodoroDetailViewController: UIViewController {
     }
     
     @objc func breakTimeFalse() {
-        finishTimeAudioPlayer?.stop()
+        audioPlayer?.stop()
         titleLabel.text = "Time To FOCUS! 💪"
         pomodoroLabel.text = "\(selectedPomodoro?.work_time_hour ?? ""):\(self.selectedPomodoro?.work_time_min ?? "")"
         nextTimeLabel.text = "\(selectedPomodoro?.break_time_hour ?? ""):\(self.selectedPomodoro?.break_time_min ?? "")"
@@ -155,20 +156,37 @@ class PomodoroDetailViewController: UIViewController {
         isStartTapped = false
     }
     
-    private func startFinishSound() {
-        guard let soundURL = Bundle.main.url(forResource: "ringing", withExtension: "mp3") else { return }
+    private func startSound(with name: String, withExtension: String) {
+        guard let soundURL = Bundle.main.url(forResource: name, withExtension: withExtension) else { return }
         
         do {
-            finishTimeAudioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-            finishTimeAudioPlayer?.play()
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+            audioPlayer?.numberOfLoops = -1
+            audioPlayer?.play()
         } catch {
             print(error.localizedDescription)
         }
     }
     
     @objc func startButtonTapped() {
+        let defaults = UserDefaults.standard
+        tabBarController!.tabBar.items![1].isEnabled = false
+        if let text = defaults.string(forKey: "musicName") {
+            if text == "Noone" {
+                audioPlayer?.stop()
+            } else if text == "Nature" {
+                startSound(with: "nature", withExtension: "mp3")
+            } else if text == "Rain" {
+                startSound(with: "rain", withExtension: "mp3")
+            } else if text == "Water Stream" {
+                startSound(with: "water-stream", withExtension: "wav")
+            }
+        } else {
+            print("There is no song ")
+        }
+        
+        
         if !isStartTapped {
-            timeLeft = 5
             strokeIt.fromValue = 0
             strokeIt.toValue = 1
             strokeIt.duration = timeLeft
@@ -189,8 +207,10 @@ class PomodoroDetailViewController: UIViewController {
     
     @objc func stopButtonTapped() {
         if isStartTapped {
+            tabBarController!.tabBar.items![1].isEnabled = true
             isStartTapped = false
             isStopTapped = true
+            audioPlayer?.stop()
             animationTimer.invalidate()
             timeLeftShapeLayer.removeAnimation(forKey: "countDown")
         }
@@ -198,6 +218,7 @@ class PomodoroDetailViewController: UIViewController {
     
     @objc func resetButtonTapped() {
         if isStartTapped || isStopTapped {
+            tabBarController!.tabBar.items![1].isEnabled = true
             isStartTapped = false
             isStopTapped = false
             animationTimer.invalidate()
