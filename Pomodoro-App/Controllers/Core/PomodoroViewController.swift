@@ -112,8 +112,10 @@ class PomodoroViewController: UIViewController {
         view.backgroundColor = .gray
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2 ) {
-            let popup = PomodoroPopup()
-            self.view.addSubview(popup)
+            let popupVc = PomodoroPopupVc()
+            self.addChild(popupVc)
+            self.view.addSubview(popupVc.view)
+            popupVc.didMove(toParent: self)
             self.pomodoroTableView.isHidden = true
             self.searchController.searchBar.isHidden = true
         }

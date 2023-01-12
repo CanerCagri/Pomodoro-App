@@ -181,10 +181,7 @@ class PomodoroDetailViewController: UIViewController {
             } else if text == "Water Stream" {
                 startSound(with: "water-stream", withExtension: "wav")
             }
-        } else {
-            print("There is no song ")
         }
-        
         
         if !isStartTapped {
             strokeIt.fromValue = 0

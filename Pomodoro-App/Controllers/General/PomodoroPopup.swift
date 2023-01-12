@@ -35,12 +35,17 @@ class PomodoroPopup: UIView {
         addPomodoroLabel.text = "Add Pomodoro"
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateOut)))
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        pomodoroNameTextField.addTarget(self, action: #selector(test), for: .touchUpInside)
         applyConstraints()
         animateIn()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func test() {
+       
     }
     
     @objc func animateOut() {
@@ -66,7 +71,21 @@ class PomodoroPopup: UIView {
     
     }
     
+ 
     @objc func saveButtonTapped() {
+        
+        let moodSelectionVc = PomodoroBottomSheetVc()
+        
+        if let sheet = moodSelectionVc.sheetPresentationController {
+            print("test")
+            sheet.detents = [.medium()]
+            sheet.prefersGrabberVisible = true
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = true
+            sheet.preferredCornerRadius = 24
+        }
+        
+    
+        
         guard let name = pomodoroNameTextField.text, !name.isEmpty else { return }
         
         let calendar = Calendar.current

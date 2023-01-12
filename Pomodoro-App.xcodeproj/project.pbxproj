@@ -13,6 +13,8 @@
 		01BCDCAD296DB3AE00173AA1 /* nature.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAA296DB3AE00173AA1 /* nature.mp3 */; };
 		01BCDCAE296DB3AE00173AA1 /* water-stream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAB296DB3AE00173AA1 /* water-stream.wav */; };
 		01BCDCAF296DB3AE00173AA1 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAC296DB3AE00173AA1 /* rain.mp3 */; };
+		01BCDCB129705E9E00173AA1 /* PomodoroBottomSheetVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCB029705E9E00173AA1 /* PomodoroBottomSheetVc.swift */; };
+		01BCDCB329707F9700173AA1 /* PomodoroPopupVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCB229707F9700173AA1 /* PomodoroPopupVc.swift */; };
 		01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */; };
 		01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */; };
 		01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B1482959FA0100A6B4A4 /* Assets.xcassets */; };
@@ -22,7 +24,6 @@
 		01D5B1582959FB7100A6B4A4 /* AddMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */; };
 		01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */; };
 		01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B15E295B30F000A6B4A4 /* PomodoroViewModel.swift */; };
-		01D5B162295B359000A6B4A4 /* PomodoroPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */; };
 		01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */; };
 		01D5B168295C79AB00A6B4A4 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */; };
 		01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */; };
@@ -44,6 +45,8 @@
 		01BCDCAA296DB3AE00173AA1 /* nature.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nature.mp3; path = "Pomodoro-App/Sounds/nature.mp3"; sourceTree = SOURCE_ROOT; };
 		01BCDCAB296DB3AE00173AA1 /* water-stream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "water-stream.wav"; path = "Pomodoro-App/Sounds/water-stream.wav"; sourceTree = SOURCE_ROOT; };
 		01BCDCAC296DB3AE00173AA1 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = rain.mp3; path = "Pomodoro-App/Sounds/rain.mp3"; sourceTree = SOURCE_ROOT; };
+		01BCDCB029705E9E00173AA1 /* PomodoroBottomSheetVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroBottomSheetVc.swift; sourceTree = "<group>"; };
+		01BCDCB229707F9700173AA1 /* PomodoroPopupVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPopupVc.swift; sourceTree = "<group>"; };
 		01D5B13C2959F9FF00A6B4A4 /* Pomodoro-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pomodoro-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,7 +58,6 @@
 		01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicViewController.swift; sourceTree = "<group>"; };
 		01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTableViewCell.swift; sourceTree = "<group>"; };
 		01D5B15E295B30F000A6B4A4 /* PomodoroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewModel.swift; sourceTree = "<group>"; };
-		01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPopup.swift; sourceTree = "<group>"; };
 		01D5B164295C796100A6B4A4 /* PomodoroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PomodoroModel.xcdatamodel; sourceTree = "<group>"; };
 		01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroDetailViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,8 @@
 			isa = PBXGroup;
 			children = (
 				01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */,
+				01BCDCB029705E9E00173AA1 /* PomodoroBottomSheetVc.swift */,
+				01BCDCB229707F9700173AA1 /* PomodoroPopupVc.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -164,7 +168,6 @@
 				01D5B17E2965FEE600A6B4A4 /* TextFields */,
 				01D5B1772964B88C00A6B4A4 /* Labels */,
 				01D5B1712963463200A6B4A4 /* Buttons */,
-				01D5B1702963462400A6B4A4 /* Popups */,
 				01D5B1812965FFE400A6B4A4 /* DatePickers */,
 			);
 			path = CustomComponents;
@@ -187,14 +190,6 @@
 				01D5B17C2965F82F00A6B4A4 /* UITableView+Ext.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		01D5B1702963462400A6B4A4 /* Popups */ = {
-			isa = PBXGroup;
-			children = (
-				01D5B161295B359000A6B4A4 /* PomodoroPopup.swift */,
-			);
-			path = Popups;
 			sourceTree = "<group>";
 		};
 		01D5B1712963463200A6B4A4 /* Buttons */ = {
@@ -323,11 +318,12 @@
 				01D5B168295C79AB00A6B4A4 /* PersistenceManager.swift in Sources */,
 				01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */,
 				01D5B17D2965F82F00A6B4A4 /* UITableView+Ext.swift in Sources */,
+				01BCDCB329707F9700173AA1 /* PomodoroPopupVc.swift in Sources */,
 				01D5B1562959FB6600A6B4A4 /* PomodoroViewController.swift in Sources */,
+				01BCDCB129705E9E00173AA1 /* PomodoroBottomSheetVc.swift in Sources */,
 				01D5B17B2964B9A600A6B4A4 /* PALabel.swift in Sources */,
 				01D5B1742964B57D00A6B4A4 /* UIView+Ext.swift in Sources */,
 				01BCDCA9296DB17000173AA1 /* AddMusicTableViewCell.swift in Sources */,
-				01D5B162295B359000A6B4A4 /* PomodoroPopup.swift in Sources */,
 				01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */,
 				01D5B16F2963460900A6B4A4 /* TimeInterval+Ext.swift in Sources */,
 				01D5B1832965FFFA00A6B4A4 /* PADatePicker.swift in Sources */,

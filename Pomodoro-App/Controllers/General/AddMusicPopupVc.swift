@@ -10,7 +10,7 @@ import UIKit
 class AddMusicPopupVc: UIViewController {
     
     let songTitles: [String] = ["Noone", "Nature", "Rain", "Water Stream"]
-
+    
     private let popupView: UIView = {
         var view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -69,18 +69,37 @@ extension AddMusicPopupVc: UITableViewDelegate, UITableViewDataSource {
         selectionView.backgroundColor = .red
         cell.selectedBackgroundView = selectionView
         cell.nameLabel.text = songTitles[indexPath.row]
+        let defaults = UserDefaults.standard
+        if let text = defaults.string(forKey: "musicName") {
+            let valueInRow = songTitles[indexPath.row]
+            if valueInRow == text {
+                cell.contentView.backgroundColor = .red
+                cell.contentView.tintColor = .systemBackground
+                cell.contentView.layer.cornerRadius = 12
+            } else {
+                cell.contentView.backgroundColor = .systemBlue
+                cell.contentView.tintColor = .systemBackground
+                cell.contentView.layer.cornerRadius = 12
+            }
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        for i in 0..<tableView.numberOfRows(inSection: 0) {
+            let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0))
+            cell?.contentView.backgroundColor = .systemBlue
+            cell?.contentView.tintColor = .systemBackground
+            cell?.contentView.layer.cornerRadius = 12
+        }
+        let cell = tableView.cellForRow(at: indexPath)
+        cell?.contentView.backgroundColor = .red
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let selectedRow = songTitles[indexPath.row]
         
         PersistenceManager.shared.saveMusicToUserDefaults(with: selectedRow)
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = .systemBlue
-        cell.tintColor = .systemBackground
-        cell.layer.cornerRadius = 12
     }
 }

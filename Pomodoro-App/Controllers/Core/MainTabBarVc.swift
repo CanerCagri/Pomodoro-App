@@ -19,7 +19,7 @@ class MainTabBarVc: UITabBarController {
         vc2.tabBarItem.image = UIImage(systemName: "list.bullet.clipboard")
         
         vc1.title = "Pomodoro"
-        vc2.title = "Add Music"
+        vc2.title = "Add/Choose Music"
         
         tabBar.tintColor = .label
         tabBar.backgroundColor = .secondarySystemBackground

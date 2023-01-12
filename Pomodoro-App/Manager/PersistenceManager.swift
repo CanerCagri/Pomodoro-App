@@ -21,7 +21,6 @@ class PersistenceManager {
     func saveMusicToUserDefaults(with name: String = "Noone") {
         let defaults = UserDefaults.standard
         defaults.set(name, forKey: "musicName")
-        print("\(name) song.")
     }
     
     func downloadWithModel(model: PomodoroViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
