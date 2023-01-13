@@ -35,7 +35,7 @@ class PAButton: UIButton {
         configuration?.baseForegroundColor = .white
         
         var container = AttributeContainer()
-        container.font = UIFont(name: "GillSans-SemiBold", size: 22)
+        container.font = UIFont(name: Colors.PAButtonColor, size: 22)
         configuration?.attributedTitle = AttributedString(title, attributes: container)
         
         configuration?.image = UIImage(systemName: systemImageName)

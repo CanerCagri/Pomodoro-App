@@ -9,17 +9,9 @@ import UIKit
 
 class AddMusicPopupVc: UIViewController {
     
-    let songTitles: [String] = ["Noone", "Nature", "Rain", "Water Stream"]
+    // UI Components
     
-    private let popupView: UIView = {
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.label.withAlphaComponent(0.7)
-        view.backgroundColor = .systemGray
-        view.layer.cornerRadius = 24
-        return view
-    }()
-    
+    private let popupView = PAContainerView()
     private let addMusicTableView: UITableView = {
         var tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,12 +19,18 @@ class AddMusicPopupVc: UIViewController {
         return tableView
     }()
     
+    let songTitles: [String] = ["Noone", "Nature", "Rain", "Water Stream"]
+    
+    // Lifecycle methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpConstraints()
         configureTableView()
     }
+    
+    // Methods
     
     private func configureTableView() {
         addMusicTableView.isScrollEnabled = false
@@ -58,6 +56,8 @@ class AddMusicPopupVc: UIViewController {
     }
 }
 
+// TableView Protocols
+
 extension AddMusicPopupVc: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return songTitles.count
@@ -70,7 +70,7 @@ extension AddMusicPopupVc: UITableViewDelegate, UITableViewDataSource {
         cell.selectedBackgroundView = selectionView
         cell.nameLabel.text = songTitles[indexPath.row]
         let defaults = UserDefaults.standard
-        if let text = defaults.string(forKey: "musicName") {
+        if let text = defaults.string(forKey: UserDefaultConstants.musicName) {
             let valueInRow = songTitles[indexPath.row]
             if valueInRow == text {
                 cell.contentView.backgroundColor = .red
@@ -87,7 +87,6 @@ extension AddMusicPopupVc: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         for i in 0..<tableView.numberOfRows(inSection: 0) {
             let cell = tableView.cellForRow(at: IndexPath(row: i, section: 0))
             cell?.contentView.backgroundColor = .systemBlue
@@ -99,7 +98,6 @@ extension AddMusicPopupVc: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         let selectedRow = songTitles[indexPath.row]
-        
         PersistenceManager.shared.saveMusicToUserDefaults(with: selectedRow)
     }
 }

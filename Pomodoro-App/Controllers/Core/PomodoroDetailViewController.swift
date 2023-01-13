@@ -35,9 +35,9 @@ class PomodoroDetailViewController: UIViewController {
     private let nextTimeLabel = PALabel(textAlignment: .center, fontSize: 21, textColor: .systemGray)
     private let repeatedTimeLabel = PALabel(textAlignment: .center, fontSize: 25, textColor: .systemGreen)
     
-    private let startButton = PAButton(title: "Start", color: .systemPink, systemImageName: "play.fill")
-    private let stopButton = PAButton(title: "Pause", color: .systemPink, systemImageName: "stop.fill")
-    private let resetButton = PAButton(title: "Restart", color: .systemPink, systemImageName: "restart.circle.fill")
+    private let startButton = PAButton(title: "Start", color: .systemPink, systemImageName: SFSymbols.play)
+    private let stopButton = PAButton(title: "Pause", color: .systemPink, systemImageName: SFSymbols.stop)
+    private let resetButton = PAButton(title: "Restart", color: .systemPink, systemImageName: SFSymbols.restart)
     
     var selectedPomodoro: PomodoroItem? {
         didSet {
@@ -48,8 +48,8 @@ class PomodoroDetailViewController: UIViewController {
             repeatedTimeLabel.text = (selectedPomodoro?.repeat_time)!
         }
     }
-
-    // Viewcontroller Lifecycle methods
+    
+    // Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,15 +64,18 @@ class PomodoroDetailViewController: UIViewController {
     }
     
     // Functions
-
+    
     private func addAnimation() {
-        bgShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY - 100), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
+        
+        let topConstarintConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? 50 : 100
+        
+        bgShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX, y: view.frame.midY - topConstarintConstant), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
         bgShapeLayer.strokeColor = UIColor.systemBlue.cgColor
         bgShapeLayer.fillColor = UIColor.clear.cgColor
         bgShapeLayer.lineWidth = 15
         view.layer.addSublayer(bgShapeLayer)
         
-        timeLeftShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX , y: view.frame.midY - 100), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
+        timeLeftShapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: view.frame.midX , y: view.frame.midY - topConstarintConstant), radius: 100, startAngle: -90.degreesToRadians, endAngle: 270.degreesToRadians, clockwise: true).cgPath
         timeLeftShapeLayer.strokeColor = UIColor.gray.cgColor
         timeLeftShapeLayer.fillColor = UIColor.clear.cgColor
         timeLeftShapeLayer.lineWidth = 15
@@ -117,7 +120,7 @@ class PomodoroDetailViewController: UIViewController {
             pomodoroLabel.text = "00:00:00"
             animationTimer.invalidate()
             audioPlayer?.stop()
-            startSound(with: "ringing", withExtension: "mp3")
+            startSound(with: Sounds.ringing, withExtension: "mp3")
             
             if titleLabel.text == "Break Time! 👏" {
                 repeatCounter = Int(repeatedTimeLabel.text!)! + 1
@@ -164,22 +167,22 @@ class PomodoroDetailViewController: UIViewController {
             audioPlayer?.numberOfLoops = -1
             audioPlayer?.play()
         } catch {
-            print(error.localizedDescription)
+            presentDefaultError()
         }
     }
     
     @objc func startButtonTapped() {
         let defaults = UserDefaults.standard
         tabBarController!.tabBar.items![1].isEnabled = false
-        if let text = defaults.string(forKey: "musicName") {
+        if let text = defaults.string(forKey: UserDefaultConstants.musicName) {
             if text == "Noone" {
                 audioPlayer?.stop()
             } else if text == "Nature" {
-                startSound(with: "nature", withExtension: "mp3")
+                startSound(with: Sounds.nature, withExtension: "mp3")
             } else if text == "Rain" {
-                startSound(with: "rain", withExtension: "mp3")
+                startSound(with: Sounds.rain, withExtension: "mp3")
             } else if text == "Water Stream" {
-                startSound(with: "water-stream", withExtension: "wav")
+                startSound(with: Sounds.waterStream, withExtension: "wav")
             }
         }
         
@@ -190,7 +193,7 @@ class PomodoroDetailViewController: UIViewController {
             strokeIt.timeOffset = Double(offSetTime) - timeLeft
             
             timeLeftShapeLayer.add(strokeIt, forKey: "countDown")
-          
+            
             endTime = Date().addingTimeInterval(timeLeft)
             
             animationTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
@@ -234,6 +237,8 @@ class PomodoroDetailViewController: UIViewController {
     private func addConstraints() {
         view.addSubviews(titleLabel, pomodoroLabel, nextTimeLabel, repeatedTimeLabel, startButton, stopButton, resetButton)
         
+        let topConstarintConstant: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? -40 : -100
+        
         let titleLabelConstraints = [
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
@@ -241,19 +246,19 @@ class PomodoroDetailViewController: UIViewController {
         
         let pomodoroLabelConstraints = [
             pomodoroLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            pomodoroLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100),
+            pomodoroLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: topConstarintConstant),
             pomodoroLabel.widthAnchor.constraint(equalToConstant: 300),
         ]
         
         let nextTimeLabelConstraints = [
             nextTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nextTimeLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -70),
+            nextTimeLabel.topAnchor.constraint(equalTo: pomodoroLabel.bottomAnchor, constant: 1),
             nextTimeLabel.widthAnchor.constraint(equalToConstant: 300),
         ]
         
         let repeatedTimeLabelConstraints = [
             repeatedTimeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            repeatedTimeLabel.topAnchor.constraint(equalTo: nextTimeLabel.bottomAnchor, constant: 2),
+            repeatedTimeLabel.topAnchor.constraint(equalTo: nextTimeLabel.bottomAnchor, constant: 1),
             repeatedTimeLabel.widthAnchor.constraint(equalToConstant: 300),
         ]
         

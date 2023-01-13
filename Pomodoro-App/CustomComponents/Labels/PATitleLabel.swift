@@ -8,7 +8,7 @@
 import UIKit
 
 class PATitleLabel: UILabel {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -17,11 +17,11 @@ class PATitleLabel: UILabel {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-     
+    
     init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         super.init(frame: .zero)
         self.textAlignment = textAlignment
-        self.font = UIFont(name: "GillSans-SemiBold", size: fontSize)
+        self.font = UIFont(name: Colors.PATitleLabelColor, size: fontSize)
         self.textColor = .label
         configure()
     }
@@ -29,7 +29,7 @@ class PATitleLabel: UILabel {
     init(textAlignment: NSTextAlignment, fontSize: CGFloat, textColor: UIColor) {
         super.init(frame: .zero)
         self.textAlignment = textAlignment
-        self.font = UIFont(name: "GillSans-SemiBold", size: fontSize)
+        self.font = UIFont(name: Colors.PATitleLabelColor, size: fontSize)
         self.textColor = textColor
         configure()
     }

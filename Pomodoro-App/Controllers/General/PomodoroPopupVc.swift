@@ -10,63 +10,78 @@ import UIKit
 
 class PomodoroPopupVc: UIViewController {
     
+    //Variables
+    
     var viewModel: PomodoroViewModel?
     var pomodoroHour: String!
     var pomodoroMin: String!
     var breakHour: String!
     var breakMin: String!
     
-    private let containerView: UIView = {
-        var view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.label.withAlphaComponent(0.7)
-        view.layer.cornerRadius = 24
-        return view
-    }()
     
-    private let addPomodoroLabel = PALabel(textAlignment: .center, fontSize: 20, textColor: .tertiarySystemBackground)
+    // UI Components
+    
+    private let containerView = PAContainerView()
+    private let addPomodoroLabel = PALabel(textAlignment: .center, fontSize: 20)
     private let pomodoroNameTextField = PATextField(placeholder: "Enter a pomodoro name")
-    private let pomodoroTimeLabel = PALabel(textAlignment: .left, fontSize: 17, textColor: .tertiarySystemBackground)
+    private let pomodoroTimeLabel = PALabel(textAlignment: .left, fontSize: 17)
     private let pomodoroTextField = PATextField(placeholder: "00:00")
     private let pomodoroPicker = PADatePicker()
-    private let breakTimeLabel = PALabel(textAlignment: .left, fontSize: 17, textColor: .tertiarySystemBackground)
+    private let breakTimeLabel = PALabel(textAlignment: .left, fontSize: 17)
     private let breakTimeTextField = PATextField(placeholder: "00:00")
     private let breakTimePicker = PADatePicker()
+    private let saveButton = PAButton(title: "SAVE", color: .systemPink, systemImageName: SFSymbols.save)
     
-    private let saveButton = PAButton(title: "SAVE", color: .systemPink, systemImageName: "checkmark.circle")
-
+    // Lifecycle methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureViewController()
         applyConstraints()
-        animateIn()
+        addGestureRecognizers()
     }
+    
+    // Methods
     
     private func configureViewController() {
         view.backgroundColor = UIColor.systemGray.withAlphaComponent(0.5)
         view.frame = UIScreen.main.bounds
         containerView.largeContentTitle = "Add Pomodoro"
-        pomodoroTimeLabel.text = "Enter Focus Time"
-        breakTimeLabel.text = "Enter Break Time"
+        pomodoroTimeLabel.text = "Enter Focus Time:"
+        breakTimeLabel.text = "Enter Break Time:"
         addPomodoroLabel.text = "Add Pomodoro"
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(animateOut)))
+    }
+    
+    private func addGestureRecognizers() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateOut))
+        view.addGestureRecognizer(tapGesture)
+        
+        let dontTapGesture = UITapGestureRecognizer(target: self, action: #selector(dontAnimateOut))
+        containerView.addGestureRecognizer(dontTapGesture)
         saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        
         pomodoroTextField.addTarget(self, action: #selector(pomodoroTextFieldTapped), for: .touchDown)
-        breakTimeTextField.addTarget(self, action: #selector(breakTextFieldTapped), for: .touchDown)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("addedPomodoroTime"), object: nil, queue: nil) { [weak self] (notification) in
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.addedPomodoroTime), object: nil, queue: nil) { [weak self] (notification) in
             self?.pomodoroHour = notification.userInfo?["pomodoroHour"] as? String
             self?.pomodoroMin = notification.userInfo?["pomodoroMin"] as? String
             let calculatedTime = "\(self?.pomodoroHour! ?? "00"):\(self?.pomodoroMin! ?? "00")"
             self?.pomodoroTextField.text = calculatedTime
         }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("addedBreakTime"), object: nil, queue: nil) { [weak self] (notification) in
+        
+        breakTimeTextField.addTarget(self, action: #selector(breakTextFieldTapped), for: .touchDown)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.addedBreakTime), object: nil, queue: nil) { [weak self] (notification) in
             self?.breakHour = notification.userInfo?["breakTimeHour"] as? String
             self?.breakMin = notification.userInfo?["breakTimeMin"] as? String
             let calculatedTime = "\(self?.breakHour! ?? "00"):\(self?.breakMin! ?? "00")"
             self?.breakTimeTextField.text = calculatedTime
         }
         
+        animateIn()
+    }
+    
+    @objc func dontAnimateOut(){
+        print("I dont want to animate out :))")
     }
     
     @objc func pomodoroTextFieldTapped() {
@@ -100,7 +115,7 @@ class PomodoroPopupVc: UIViewController {
                 self.view.removeFromSuperview()
             }
         }
-        NotificationCenter.default.post(Notification(name: Notification.Name("animateOut")))
+        NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.animateOut)))
     }
     
     @objc func animateIn() {
@@ -111,31 +126,41 @@ class PomodoroPopupVc: UIViewController {
             self.containerView.transform = .identity
             self.view.alpha = 1
         }
-    
+        
     }
     
- 
     @objc func saveButtonTapped() {
-        guard let name = pomodoroNameTextField.text, !name.isEmpty else { return }
-        guard let focusTime = pomodoroTextField.text, !focusTime.isEmpty else { return }
-        guard let breakTime = breakTimeTextField.text, !breakTime.isEmpty else { return }
-
+        guard let name = pomodoroNameTextField.text, !name.isEmpty else {
+            presentAlert(title: "Pomodoro Name Error", message: "Please enter a pomodoro name", buttonTitle: "Ok")
+            return
+            
+        }
+        guard let focusTime = pomodoroTextField.text, !focusTime.isEmpty else {
+            presentAlert(title: "Focus Time Error", message: "Please enter a focus time", buttonTitle: "Ok")
+            return
+            
+        }
+        guard let breakTime = breakTimeTextField.text, !breakTime.isEmpty else {
+            presentAlert(title: "Break Time Error", message: "Please enter a break time", buttonTitle: "Ok")
+            return
+            
+        }
+        
         if pomodoroTextField.text != "00:00" && breakTimeTextField.text != "00:00" {
-            
-            
             let viewModel = PomodoroViewModel(name: name, workTimeHour: pomodoroHour, workTimeMin: pomodoroMin, breakTimeHour: breakHour, breakTimeMin: breakMin, repeatTime: "0")
             
             PersistenceManager.shared.downloadWithModel(model: viewModel) { result in
                 switch result {
                 case .success():
-                    NotificationCenter.default.post(Notification(name: Notification.Name("added")))
+                    NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.added)))
                     self.animateOut()
                 case .failure(let failure):
                     print(failure.localizedDescription)
                 }
             }
         } else {
-            return // TODO
+            presentAlert(title: "Error", message: "Focus time or Break time cannot be equal to 0", buttonTitle: "Ok")
+            return
         }
     }
     
@@ -146,7 +171,7 @@ class PomodoroPopupVc: UIViewController {
         containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.82).isActive = true
         containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.62).isActive = true
-    
+        
         containerView.addSubviews(addPomodoroLabel, pomodoroNameTextField, pomodoroTimeLabel, pomodoroTextField, breakTimeLabel, breakTimeTextField, saveButton)
         
         addPomodoroLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
@@ -177,13 +202,9 @@ class PomodoroPopupVc: UIViewController {
         breakTimeTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
         breakTimeTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        
         saveButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         saveButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15).isActive = true
         saveButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         saveButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
-
-   
-
 }

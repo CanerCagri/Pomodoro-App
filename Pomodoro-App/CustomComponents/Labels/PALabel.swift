@@ -8,7 +8,7 @@
 import UIKit
 
 class PALabel: UILabel {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -17,7 +17,7 @@ class PALabel: UILabel {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-     
+    
     init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         super.init(frame: .zero)
         self.textAlignment = textAlignment

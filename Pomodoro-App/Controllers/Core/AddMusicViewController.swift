@@ -17,7 +17,7 @@ class AddMusicViewController: UIViewController {
     }
     
     private func configureViewController() {
-        title = "Add Music"
+        title = Constants.tab1Title
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always

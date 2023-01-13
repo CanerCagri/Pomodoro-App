@@ -9,7 +9,7 @@ import UIKit
 
 class AddMusicTableViewCell: UITableViewCell {
     
-    static let identifier = "AddMusicTableViewCell"
+    static let identifier = Identifiers.addMusicTableViewCell
     
     var nameLabel = PATitleLabel(textAlignment: .left, fontSize: 18, textColor: .label)
     

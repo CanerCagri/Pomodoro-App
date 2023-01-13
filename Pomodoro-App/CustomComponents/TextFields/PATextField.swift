@@ -8,7 +8,7 @@
 import UIKit
 
 class PATextField: UITextField {
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -20,7 +20,7 @@ class PATextField: UITextField {
     
     init(placeholder: String) {
         super.init(frame: .zero)
-        attributedPlaceholder = NSAttributedString(string: placeholder, attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: "Times New Roman", size: 20)!])
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: Constants.timesNewRoman, size: 20)!])
         configure()
     }
     
@@ -30,18 +30,16 @@ class PATextField: UITextField {
         layer.borderWidth = 2
         layer.borderColor = UIColor.systemGray4.cgColor
         layer.cornerRadius = 10
-        textColor = .systemBackground
+        textColor = .label
         tintColor = .label
         textAlignment = .center
         font = UIFont.preferredFont(forTextStyle: .title2)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         
-//        backgroundColor = .tertiarySystemBackground
+        backgroundColor = .tertiarySystemBackground
         autocorrectionType = .no
         returnKeyType = .go
         clearButtonMode = .whileEditing
-        
-        
     }
 }

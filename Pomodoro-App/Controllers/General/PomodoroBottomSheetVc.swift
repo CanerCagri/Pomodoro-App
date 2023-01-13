@@ -9,38 +9,45 @@ import UIKit
 
 class PomodoroBottomSheetVc: UIViewController {
     
-    var name: String?
+    // UI Components
     
     private let timePicker = PADatePicker()
-    private let saveButton = PAButton(title: "Next", color: .systemPink, systemImageName: "checkmark.circle")
-
+    private let saveButton = PAButton(title: "Next", color: .systemPink, systemImageName: SFSymbols.save)
+    
+    var name: String?
+    
+    // Lifecycle methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        
+        configureViewController()
         addConstraints()
     }
     
+    // Methods
+    
+    private func configureViewController() {
+        view.backgroundColor = .systemBackground
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+    }
+    
     @objc func saveButtonTapped() {
-        
         let calendar = Calendar.current
         
         if name == "pomodoro" {
             let pomodoroComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
             let pomoHour = pomodoroComponents.hour
             let pomoMin = pomodoroComponents.minute
-            print("test")
+            
             if pomoMin != 0 {
                 let pomodoroHour = String(format: "%02d", pomoHour!)
                 let pomodoroMin = String(format: "%02d", pomoMin!)
-                let calculatedTime = "\(pomodoroHour):\(pomodoroMin)"
                 
-                NotificationCenter.default.post(Notification(name: Notification.Name("addedPomodoroTime"), userInfo: ["pomodoroHour": pomodoroHour, "pomodoroMin": pomodoroMin]))
+                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedPomodoroTime), userInfo: ["pomodoroHour": pomodoroHour, "pomodoroMin": pomodoroMin]))
                 dismiss(animated: true)
             }
-                
+            
         } else if name == "break" {
             let breakTimeComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
             let breakHour = breakTimeComponents.hour
@@ -49,13 +56,11 @@ class PomodoroBottomSheetVc: UIViewController {
             if breakMin != 0 {
                 let breakTimeHour = String(format: "%02d", breakHour!)
                 let breakTimeMin = String(format: "%02d", breakMin!)
-                let calculatedTime = "\(breakTimeHour):\(breakTimeMin)"
                 
-                NotificationCenter.default.post(Notification(name: Notification.Name("addedBreakTime"), userInfo: ["breakTimeHour": breakTimeHour, "breakTimeMin": breakTimeMin]))
+                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedBreakTime), userInfo: ["breakTimeHour": breakTimeHour, "breakTimeMin": breakTimeMin]))
                 dismiss(animated: true)
             }
         }
-        
     }
     
     private func addConstraints() {
@@ -63,16 +68,12 @@ class PomodoroBottomSheetVc: UIViewController {
         
         saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
         saveButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 5).isActive = true
-        saveButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        saveButton.widthAnchor.constraint(equalToConstant: 130).isActive = true
+        saveButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        saveButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         timePicker.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         timePicker.topAnchor.constraint(equalTo: saveButton.bottomAnchor, constant: 20).isActive = true
         timePicker.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         timePicker.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
-    
-
-    
-
 }

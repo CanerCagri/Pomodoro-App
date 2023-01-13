@@ -9,10 +9,7 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
-    private var pomodoros: [PomodoroItem] = []
-    private var filteredPomodoros: [PomodoroItem] = []
-    
-    var isSearching = false
+    // UI Components
     
     private let pomodoroTableView: UITableView = {
         var tableView = UITableView()
@@ -27,6 +24,11 @@ class PomodoroViewController: UIViewController {
         controller.obscuresBackgroundDuringPresentation = false
         return controller
     }()
+    
+    private var pomodoros: [PomodoroItem] = []
+    private var filteredPomodoros: [PomodoroItem] = []
+    
+    var isSearching = false
     
     // ViewController Lifecycle methods
     
@@ -53,7 +55,7 @@ class PomodoroViewController: UIViewController {
     // Functions
     
     private func configureViewController() {
-        title = "Pomodoro"
+        title = Constants.tab0Title
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
@@ -62,13 +64,13 @@ class PomodoroViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(leftBarButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
         
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("added"), object: nil, queue: nil) { _ in
-            self.fetchFromDatabase()
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.added), object: nil, queue: nil) { [weak self] _ in
+            self?.fetchFromDatabase()
         }
-        NotificationCenter.default.addObserver(forName: NSNotification.Name("animateOut"), object: nil, queue: nil) { _ in
-            self.navigationItem.rightBarButtonItem?.isEnabled = true
-            self.pomodoroTableView.isHidden = false
-            self.searchController.searchBar.isHidden = false
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.animateOut), object: nil, queue: nil) { [weak self] _ in
+            self?.navigationItem.rightBarButtonItem?.isEnabled = true
+            self?.pomodoroTableView.isHidden = false
+            self?.searchController.searchBar.isHidden = false
         }
     }
     
@@ -119,7 +121,7 @@ class PomodoroViewController: UIViewController {
             self.pomodoroTableView.isHidden = true
             self.searchController.searchBar.isHidden = true
         }
-    
+        
     }
     
     private func fetchFromDatabase() {
@@ -138,7 +140,7 @@ class PomodoroViewController: UIViewController {
     }
 }
 
-// Tableview delegate and datasource
+// TableView Protocols
 
 extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -184,6 +186,8 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+// SearchController Protocol
 
 extension PomodoroViewController: UISearchResultsUpdating {
     

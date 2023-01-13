@@ -10,17 +10,17 @@ import CoreData
 
 class PersistenceManager {
     
-    enum DatabaseError: Error {
-        case failedToDataSave
-        case failedToFetchData
-        case failedToDeleteData
+    enum DatabaseError: String, Error {
+        case failedToDataSave = "Failed to save data. Please try again."
+        case failedToFetchData = "Failed to fetch data. Please try again."
+        case failedToDeleteData = "Failed to deleting data. Please try again."
     }
-
+    
     static let shared = PersistenceManager()
     
     func saveMusicToUserDefaults(with name: String = "Noone") {
         let defaults = UserDefaults.standard
-        defaults.set(name, forKey: "musicName")
+        defaults.set(name, forKey: UserDefaultConstants.musicName)
     }
     
     func downloadWithModel(model: PomodoroViewModel, completion: @escaping (Result<Void, Error>) -> Void) {
@@ -49,16 +49,16 @@ class PersistenceManager {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<PomodoroItem>(entityName: "PomodoroItem")
+        let fetchRequest = NSFetchRequest<PomodoroItem>(entityName: Constants.entityName)
         fetchRequest.predicate = NSCompoundPredicate(type: .and, subpredicates: [
             NSPredicate(format: "id = %@", id as CVarArg)
         ])
-
+        
         do {
             let object: [PomodoroItem] = try context.fetch(fetchRequest)
             guard let objectFirst = object.first else { return }
             objectFirst.repeat_time = newRepeatedValue
-        
+            
             try context.save()
         } catch let error as NSError {
             print("Error updating attribute: \(error), \(error.userInfo)")
@@ -99,7 +99,7 @@ class PersistenceManager {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         
         let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "PomodoroItem")
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Constants.entityName)
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         
         do {

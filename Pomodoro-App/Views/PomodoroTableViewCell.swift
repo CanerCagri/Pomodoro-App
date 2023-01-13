@@ -9,8 +9,8 @@ import UIKit
 
 class PomodoroTableViewCell: UITableViewCell {
     
-    static let identifier = "PomodoroTableViewCell"
-
+    static let identifier = Identifiers.pomodoroTableViewCell
+    
     var nameLabel = PATitleLabel(textAlignment: .left, fontSize: 18)
     var workTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
     var breakTimeLabel = PALabel(textAlignment: .center, fontSize: 15)
@@ -51,7 +51,6 @@ class PomodoroTableViewCell: UITableViewCell {
         let repeatedTimeLabelConstraints = [
             repeatedTimeLabel.topAnchor.constraint(equalTo: breakTimeLabel.bottomAnchor, constant: 7),
             repeatedTimeLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 70),
-
         ]
         
         NSLayoutConstraint.activate(nameLabelConstraints)

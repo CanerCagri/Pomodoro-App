@@ -1,14 +1,14 @@
 //
-//  PADatePicker.swift
+//  PAContainerView.swift
 //  Pomodoro-App
 //
-//  Created by Caner Çağrı on 4.01.2023.
+//  Created by Caner Çağrı on 13.01.2023.
 //
 
 import UIKit
 
-class PADatePicker: UIDatePicker {
-    
+class PAContainerView: UIView {
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -20,7 +20,9 @@ class PADatePicker: UIDatePicker {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        datePickerMode = .countDownTimer
-        layer.cornerRadius = 12
+        backgroundColor = .systemBackground
+        layer.cornerRadius = 16
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.white.cgColor
     }
 }
