@@ -28,10 +28,10 @@ extension UIViewController {
         present(alertVC, animated: true)
     }
     
-//    func showEmptyState(message: String, view: UIView) {
-//        let emptyState = GFEmptyStateView(message: message)
-//        emptyState.frame = view.bounds
-//        view.addSubview(emptyState)
-//    }
+    func showEmptyState(message: String, view: UIView) {
+        let emptyState = PAEmptyStateView(message: message)
+        emptyState.frame = view.bounds
+        view.addSubview(emptyState)
+    }
 }
 

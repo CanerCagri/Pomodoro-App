@@ -16,6 +16,10 @@ enum Constants {
     static let persistenceContainerName = "PomodoroModel"
 }
 
+enum Images {
+    static let emptyState = UIImage(named: "pomodoro")
+}
+
 enum Identifiers {
     static let pomodoroTableViewCell = "PomodoroTableViewCell"
     static let addMusicTableViewCell = "AddMusicTableViewCell"

@@ -9,6 +9,8 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
+    var emptyState: PAEmptyStateView?
+    
     // UI Components
     
     private let pomodoroTableView: UITableView = {
@@ -37,8 +39,8 @@ class PomodoroViewController: UIViewController {
         
         configureViewController()
         configureTableView()
-        configureSearchController()
         fetchFromDatabase()
+        configureSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,6 +68,7 @@ class PomodoroViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.added), object: nil, queue: nil) { [weak self] _ in
             self?.fetchFromDatabase()
+            self?.configureSearchController()
         }
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.animateOut), object: nil, queue: nil) { [weak self] _ in
             self?.navigationItem.rightBarButtonItem?.isEnabled = true
@@ -85,8 +88,19 @@ class PomodoroViewController: UIViewController {
     private func configureSearchController() {
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
+
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
+        
+        if !pomodoros.isEmpty {
+            print(pomodoros.count)
+            print("hide false")
+            searchController.searchBar.isHidden = false
+            
+        } else {
+            print("hide true")
+            searchController.searchBar.isHidden = true
+        }
     }
     
     @objc func leftBarButtonTapped() {
@@ -97,6 +111,10 @@ class PomodoroViewController: UIViewController {
                 PersistenceManager.shared.deleteAllPomodoros()
                 self.pomodoros.removeAll()
                 self.pomodoroTableView.reloadData()
+                self.emptyState = PAEmptyStateView(message: "Currently don't have a Pomodoro\nAdd from (+) ")
+                self.emptyState?.frame = self.view.bounds
+                self.view.addSubview(self.emptyState!)
+                self.configureSearchController()
             }
             
             let cancelButton = UIAlertAction(title: "Cancel", style: .cancel)
@@ -105,7 +123,7 @@ class PomodoroViewController: UIViewController {
             alertController.addAction(cancelButton)
             present(alertController, animated: true)
         } else {
-            return
+            presentAlert(title: "Can't Remove Pomodoros.", message: "Do not have Pomodoro to be removed.", buttonTitle: "Ok")
         }
     }
     
@@ -121,20 +139,31 @@ class PomodoroViewController: UIViewController {
             self.pomodoroTableView.isHidden = true
             self.searchController.searchBar.isHidden = true
         }
-        
     }
     
     private func fetchFromDatabase() {
         PersistenceManager.shared.fetchPomodoros { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success(let success):
-                self?.pomodoros = success
                 
-                DispatchQueue.main.async {
-                    self?.pomodoroTableView.reloadData()
+                if success.isEmpty {
+                    self.emptyState = PAEmptyStateView(message: "Currently don't have a Pomodoro\nAdd from (+) ")
+                    self.emptyState?.frame = self.view.bounds
+                    self.view.addSubview(self.emptyState!)
+                    
+                } else {
+                    self.emptyState?.removeFromSuperview()
+                    self.pomodoros = success
+                    
+                    DispatchQueue.main.async {
+                        self.pomodoroTableView.reloadData()
+                    }
                 }
-            case .failure(let failure):
-                print(failure.localizedDescription)
+                
+            case .failure(_):
+                self.presentDefaultError()
             }
         }
     }
@@ -168,16 +197,27 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+       
         switch editingStyle {
         case .delete:
             PersistenceManager.shared.deletePomodoroWith(model: pomodoros[indexPath.row]) { [weak self] result in
+                guard let self = self else { return }
+                
                 switch result {
                 case .success():
-                    print("Pomodoro Deleted Succesfully")
-                case .failure(let failure):
-                    print(failure.localizedDescription)
+                    print("succesfully removed")
+                    self.pomodoros.remove(at: indexPath.row)
+                    if self.pomodoros.isEmpty {
+                        self.configureSearchController()
+                        self.emptyState = PAEmptyStateView(message: "Currently don't have a Pomodoro\nAdd from (+) ")
+                        self.emptyState?.frame = self.view.bounds
+                        self.view.addSubview(self.emptyState!)
+                    }
+
+                case .failure(_):
+                    self.presentDefaultError()
                 }
-                self?.pomodoros.remove(at: indexPath.row)
+                
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         default:
