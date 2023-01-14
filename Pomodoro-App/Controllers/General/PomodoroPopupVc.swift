@@ -51,6 +51,8 @@ class PomodoroPopupVc: UIViewController {
         pomodoroTimeLabel.text = "Enter Focus Time:"
         breakTimeLabel.text = "Enter Break Time:"
         addPomodoroLabel.text = "Add Pomodoro"
+        pomodoroTextField.delegate = self
+        breakTimeTextField.delegate = self
     }
     
     private func addGestureRecognizers() {
@@ -206,5 +208,11 @@ class PomodoroPopupVc: UIViewController {
         saveButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15).isActive = true
         saveButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         saveButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+    }
+}
+
+extension PomodoroPopupVc: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        return false
     }
 }

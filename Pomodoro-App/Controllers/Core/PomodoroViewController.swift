@@ -9,8 +9,6 @@ import UIKit
 
 class PomodoroViewController: UIViewController {
     
-    var emptyState: PAEmptyStateView?
-    
     // UI Components
     
     private let pomodoroTableView: UITableView = {
@@ -29,7 +27,7 @@ class PomodoroViewController: UIViewController {
     
     private var pomodoros: [PomodoroItem] = []
     private var filteredPomodoros: [PomodoroItem] = []
-    
+    var emptyState: PAEmptyStateView?
     var isSearching = false
     
     // ViewController Lifecycle methods

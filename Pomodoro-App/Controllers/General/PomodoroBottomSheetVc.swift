@@ -40,26 +40,24 @@ class PomodoroBottomSheetVc: UIViewController {
             let pomoHour = pomodoroComponents.hour
             let pomoMin = pomodoroComponents.minute
             
-            if pomoMin != 0 {
-                let pomodoroHour = String(format: "%02d", pomoHour!)
-                let pomodoroMin = String(format: "%02d", pomoMin!)
-                
-                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedPomodoroTime), userInfo: ["pomodoroHour": pomodoroHour, "pomodoroMin": pomodoroMin]))
-                dismiss(animated: true)
-            }
+            let pomodoroHour = String(format: "%02d", pomoHour!)
+            let pomodoroMin = String(format: "%02d", pomoMin!)
+            
+            NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedPomodoroTime), userInfo: ["pomodoroHour": pomodoroHour, "pomodoroMin": pomodoroMin]))
+            dismiss(animated: true)
+            
             
         } else if name == "break" {
             let breakTimeComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
             let breakHour = breakTimeComponents.hour
             let breakMin = breakTimeComponents.minute
             
-            if breakMin != 0 {
-                let breakTimeHour = String(format: "%02d", breakHour!)
-                let breakTimeMin = String(format: "%02d", breakMin!)
-                
-                NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedBreakTime), userInfo: ["breakTimeHour": breakTimeHour, "breakTimeMin": breakTimeMin]))
-                dismiss(animated: true)
-            }
+            let breakTimeHour = String(format: "%02d", breakHour!)
+            let breakTimeMin = String(format: "%02d", breakMin!)
+            
+            NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedBreakTime), userInfo: ["breakTimeHour": breakTimeHour, "breakTimeMin": breakTimeMin]))
+            dismiss(animated: true)
+            
         }
     }
     
