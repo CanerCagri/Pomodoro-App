@@ -43,6 +43,8 @@ class AddMusicPopupVc: UIViewController {
     private func setUpConstraints() {
         view.addSubview(popupView)
         popupView.addSubview(addMusicTableView)
+        popupView.layer.borderColor = UIColor.clear.cgColor
+        popupView.layer.borderWidth = 0
         
         popupView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         popupView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
