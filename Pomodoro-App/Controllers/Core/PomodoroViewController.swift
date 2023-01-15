@@ -91,18 +91,18 @@ class PomodoroViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         
         if !pomodoros.isEmpty {
-            print(pomodoros.count)
-            print("hide false")
             searchController.searchBar.isHidden = false
             
         } else {
-            print("hide true")
             searchController.searchBar.isHidden = true
         }
     }
     
     @objc func leftBarButtonTapped() {
-        if pomodoros.count != 0 {
+        if pomodoros.isEmpty {
+            presentAlert(title: "Can't Remove Pomodoros.", message: "Do not have Pomodoro to be removed.", buttonTitle: "Ok")
+            
+        } else {
             let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
             
             let deleteButton = UIAlertAction(title: "OK", style: .default) { _ in
@@ -120,8 +120,6 @@ class PomodoroViewController: UIViewController {
             alertController.addAction(deleteButton)
             alertController.addAction(cancelButton)
             present(alertController, animated: true)
-        } else {
-            presentAlert(title: "Can't Remove Pomodoros.", message: "Do not have Pomodoro to be removed.", buttonTitle: "Ok")
         }
     }
     
@@ -203,7 +201,6 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 switch result {
                 case .success():
-                    print("succesfully removed")
                     self.pomodoros.remove(at: indexPath.row)
                     if self.pomodoros.isEmpty {
                         self.configureSearchController()
@@ -220,7 +217,6 @@ extension PomodoroViewController: UITableViewDelegate, UITableViewDataSource {
             }
         default:
             break
-            
         }
     }
 }

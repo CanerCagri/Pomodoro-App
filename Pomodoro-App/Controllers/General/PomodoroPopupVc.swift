@@ -81,17 +81,17 @@ class PomodoroPopupVc: UIViewController {
         
         animateIn()
     }
-    
-    @objc func dontAnimateOut(){
-        print("I dont want to animate out :))")
-    }
-    
+
     @objc func pomodoroTextFieldTapped() {
         openBottomSheet(with: "pomodoro")
     }
     
     @objc func breakTextFieldTapped() {
         openBottomSheet(with: "break")
+    }
+    
+    @objc func dontAnimateOut(){
+        print("I dont want to animate out :))")
     }
     
     @objc func openBottomSheet(with name: String) {

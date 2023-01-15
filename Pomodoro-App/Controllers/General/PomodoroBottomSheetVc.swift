@@ -35,30 +35,14 @@ class PomodoroBottomSheetVc: UIViewController {
     @objc func saveButtonTapped() {
         let calendar = Calendar.current
         
-        if name == "pomodoro" {
-            let pomodoroComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
-            let pomoHour = pomodoroComponents.hour
-            let pomoMin = pomodoroComponents.minute
-            
-            let pomodoroHour = String(format: "%02d", pomoHour!)
-            let pomodoroMin = String(format: "%02d", pomoMin!)
-            
-            NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedPomodoroTime), userInfo: ["pomodoroHour": pomodoroHour, "pomodoroMin": pomodoroMin]))
-            dismiss(animated: true)
-            
-            
-        } else if name == "break" {
-            let breakTimeComponents = calendar.dateComponents([.hour, .minute], from: timePicker.date)
-            let breakHour = breakTimeComponents.hour
-            let breakMin = breakTimeComponents.minute
-            
-            let breakTimeHour = String(format: "%02d", breakHour!)
-            let breakTimeMin = String(format: "%02d", breakMin!)
-            
-            NotificationCenter.default.post(Notification(name: Notification.Name(Notifications.addedBreakTime), userInfo: ["breakTimeHour": breakTimeHour, "breakTimeMin": breakTimeMin]))
-            dismiss(animated: true)
-            
-        }
+        let components = calendar.dateComponents([.hour, .minute], from: timePicker.date)
+        let hour = String(format: "%02d", components.hour!)
+        let min = String(format: "%02d", components.minute!)
+        let notificationName = name == "pomodoro" ? Notifications.addedPomodoroTime : Notifications.addedBreakTime
+        let userInfo = name == "pomodoro" ? ["pomodoroHour": hour, "pomodoroMin": min] : ["breakTimeHour": hour, "breakTimeMin": min]
+        NotificationCenter.default.post(Notification(name: Notification.Name(notificationName), userInfo: userInfo))
+        dismiss(animated: true)
+
     }
     
     private func addConstraints() {

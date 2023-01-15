@@ -67,24 +67,17 @@ extension AddMusicPopupVc: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AddMusicTableViewCell.identifier, for: indexPath) as? AddMusicTableViewCell else { return UITableViewCell()}
-        let selectionView = UIView(frame: CGRect.zero)
-        selectionView.backgroundColor = .red
-        cell.selectedBackgroundView = selectionView
         cell.nameLabel.text = songTitles[indexPath.row]
+        cell.contentView.layer.cornerRadius = 12
         let defaults = UserDefaults.standard
         if let text = defaults.string(forKey: UserDefaultConstants.musicName) {
             let valueInRow = songTitles[indexPath.row]
             if valueInRow == text {
                 cell.contentView.backgroundColor = .red
-                cell.contentView.tintColor = .systemBackground
-                cell.contentView.layer.cornerRadius = 12
             } else {
                 cell.contentView.backgroundColor = .systemBlue
-                cell.contentView.tintColor = .systemBackground
-                cell.contentView.layer.cornerRadius = 12
             }
         }
-        
         return cell
     }
     
