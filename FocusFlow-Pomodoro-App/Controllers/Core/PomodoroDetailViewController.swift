@@ -124,7 +124,7 @@ class PomodoroDetailViewController: UIViewController {
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
                 self?.audioPlayer?.stop()
-                
+                self?.tabBarController!.tabBar.items![1].isEnabled = true
                 if self?.isBreakTime == true {
                     self?.updateUI(isBreakTime: true)
                     

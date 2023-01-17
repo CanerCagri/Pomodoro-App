@@ -10,9 +10,6 @@
 		01BCDCA3296A183100173AA1 /* ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCA2296A183100173AA1 /* ringing.mp3 */; };
 		01BCDCA7296DAE3A00173AA1 /* AddMusicPopupVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */; };
 		01BCDCA9296DB17000173AA1 /* AddMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */; };
-		01BCDCAD296DB3AE00173AA1 /* nature.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAA296DB3AE00173AA1 /* nature.mp3 */; };
-		01BCDCAE296DB3AE00173AA1 /* water-stream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAB296DB3AE00173AA1 /* water-stream.wav */; };
-		01BCDCAF296DB3AE00173AA1 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCAC296DB3AE00173AA1 /* rain.mp3 */; };
 		01BCDCB129705E9E00173AA1 /* PomodoroBottomSheetVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCB029705E9E00173AA1 /* PomodoroBottomSheetVc.swift */; };
 		01BCDCB329707F9700173AA1 /* PomodoroPopupVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCB229707F9700173AA1 /* PomodoroPopupVc.swift */; };
 		01BCDCB7297184DB00173AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCB6297184DB00173AA1 /* Constants.swift */; };
@@ -20,6 +17,9 @@
 		01BCDCBE297197C700173AA1 /* PAContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCBD297197C700173AA1 /* PAContainerView.swift */; };
 		01BCDCC02971D83B00173AA1 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCBF2971D83B00173AA1 /* UIViewController+Ext.swift */; };
 		01BCDCC22972F7C900173AA1 /* PAEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCC12972F7C900173AA1 /* PAEmptyStateView.swift */; };
+		01BCDCC62976D14A00173AA1 /* nature.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCC32976D14A00173AA1 /* nature.mp3 */; };
+		01BCDCC72976D14A00173AA1 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCC42976D14A00173AA1 /* rain.mp3 */; };
+		01BCDCC82976D14A00173AA1 /* water-stream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCC52976D14A00173AA1 /* water-stream.wav */; };
 		01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */; };
 		01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */; };
 		01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01D5B1482959FA0100A6B4A4 /* Assets.xcassets */; };
@@ -47,9 +47,6 @@
 		01BCDCA2296A183100173AA1 /* ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringing.mp3; sourceTree = "<group>"; };
 		01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicPopupVc.swift; sourceTree = "<group>"; };
 		01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicTableViewCell.swift; sourceTree = "<group>"; };
-		01BCDCAA296DB3AE00173AA1 /* nature.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = nature.mp3; path = "Pomodoro-App/Utilities/Audios/nature.mp3"; sourceTree = SOURCE_ROOT; };
-		01BCDCAB296DB3AE00173AA1 /* water-stream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "water-stream.wav"; path = "Pomodoro-App/Utilities/Audios/water-stream.wav"; sourceTree = SOURCE_ROOT; };
-		01BCDCAC296DB3AE00173AA1 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = rain.mp3; path = "Pomodoro-App/Utilities/Audios/rain.mp3"; sourceTree = SOURCE_ROOT; };
 		01BCDCB029705E9E00173AA1 /* PomodoroBottomSheetVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroBottomSheetVc.swift; sourceTree = "<group>"; };
 		01BCDCB229707F9700173AA1 /* PomodoroPopupVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroPopupVc.swift; sourceTree = "<group>"; };
 		01BCDCB6297184DB00173AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -57,7 +54,10 @@
 		01BCDCBD297197C700173AA1 /* PAContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PAContainerView.swift; sourceTree = "<group>"; };
 		01BCDCBF2971D83B00173AA1 /* UIViewController+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Ext.swift"; sourceTree = "<group>"; };
 		01BCDCC12972F7C900173AA1 /* PAEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PAEmptyStateView.swift; sourceTree = "<group>"; };
-		01D5B13C2959F9FF00A6B4A4 /* Pomodoro-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pomodoro-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		01BCDCC32976D14A00173AA1 /* nature.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = nature.mp3; sourceTree = "<group>"; };
+		01BCDCC42976D14A00173AA1 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rain.mp3; sourceTree = "<group>"; };
+		01BCDCC52976D14A00173AA1 /* water-stream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "water-stream.wav"; sourceTree = "<group>"; };
+		01D5B13C2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FocusFlow-Pomodoro-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		01D5B13F2959F9FF00A6B4A4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		01D5B1412959F9FF00A6B4A4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		01D5B1482959FA0100A6B4A4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,9 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				01BCDCA2296A183100173AA1 /* ringing.mp3 */,
-				01BCDCAA296DB3AE00173AA1 /* nature.mp3 */,
-				01BCDCAC296DB3AE00173AA1 /* rain.mp3 */,
-				01BCDCAB296DB3AE00173AA1 /* water-stream.wav */,
+				01BCDCC32976D14A00173AA1 /* nature.mp3 */,
+				01BCDCC42976D14A00173AA1 /* rain.mp3 */,
+				01BCDCC52976D14A00173AA1 /* water-stream.wav */,
 			);
 			path = Audios;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 		01D5B1332959F9FF00A6B4A4 = {
 			isa = PBXGroup;
 			children = (
-				01D5B13E2959F9FF00A6B4A4 /* Pomodoro-App */,
+				01D5B13E2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App */,
 				01D5B13D2959F9FF00A6B4A4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -162,12 +162,12 @@
 		01D5B13D2959F9FF00A6B4A4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				01D5B13C2959F9FF00A6B4A4 /* Pomodoro-App.app */,
+				01D5B13C2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		01D5B13E2959F9FF00A6B4A4 /* Pomodoro-App */ = {
+		01D5B13E2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App */ = {
 			isa = PBXGroup;
 			children = (
 				01BCDCB4297184AD00173AA1 /* Utilities */,
@@ -181,7 +181,7 @@
 				01D5B14D2959FA0100A6B4A4 /* Info.plist */,
 				01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */,
 			);
-			path = "Pomodoro-App";
+			path = "FocusFlow-Pomodoro-App";
 			sourceTree = "<group>";
 		};
 		01D5B15B295B289800A6B4A4 /* Views */ = {
@@ -290,9 +290,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		01D5B13B2959F9FF00A6B4A4 /* Pomodoro-App */ = {
+		01D5B13B2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 01D5B1502959FA0100A6B4A4 /* Build configuration list for PBXNativeTarget "Pomodoro-App" */;
+			buildConfigurationList = 01D5B1502959FA0100A6B4A4 /* Build configuration list for PBXNativeTarget "FocusFlow-Pomodoro-App" */;
 			buildPhases = (
 				01D5B1382959F9FF00A6B4A4 /* Sources */,
 				01D5B1392959F9FF00A6B4A4 /* Frameworks */,
@@ -302,9 +302,9 @@
 			);
 			dependencies = (
 			);
-			name = "Pomodoro-App";
+			name = "FocusFlow-Pomodoro-App";
 			productName = "Pomodoro-App";
-			productReference = 01D5B13C2959F9FF00A6B4A4 /* Pomodoro-App.app */;
+			productReference = 01D5B13C2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -322,7 +322,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 01D5B1372959F9FF00A6B4A4 /* Build configuration list for PBXProject "Pomodoro-App" */;
+			buildConfigurationList = 01D5B1372959F9FF00A6B4A4 /* Build configuration list for PBXProject "FocusFlow-Pomodoro-App" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -335,7 +335,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				01D5B13B2959F9FF00A6B4A4 /* Pomodoro-App */,
+				01D5B13B2959F9FF00A6B4A4 /* FocusFlow-Pomodoro-App */,
 			);
 		};
 /* End PBXProject section */
@@ -346,11 +346,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				01BCDCA3296A183100173AA1 /* ringing.mp3 in Resources */,
-				01BCDCAE296DB3AE00173AA1 /* water-stream.wav in Resources */,
-				01BCDCAF296DB3AE00173AA1 /* rain.mp3 in Resources */,
+				01BCDCC72976D14A00173AA1 /* rain.mp3 in Resources */,
+				01BCDCC82976D14A00173AA1 /* water-stream.wav in Resources */,
 				01D5B14C2959FA0100A6B4A4 /* LaunchScreen.storyboard in Resources */,
 				01D5B1492959FA0100A6B4A4 /* Assets.xcassets in Resources */,
-				01BCDCAD296DB3AE00173AA1 /* nature.mp3 in Resources */,
+				01BCDCC62976D14A00173AA1 /* nature.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -529,18 +529,19 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XSY7H53P5K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Pomodoro-App/Info.plist";
+				INFOPLIST_FILE = "FocusFlow-Pomodoro-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "CanerCagri.Pomodoro-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "CanerCagri.FocusFlow-Pomodoro-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -560,18 +561,19 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = XSY7H53P5K;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Pomodoro-App/Info.plist";
+				INFOPLIST_FILE = "FocusFlow-Pomodoro-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "CanerCagri.Pomodoro-App";
+				PRODUCT_BUNDLE_IDENTIFIER = "CanerCagri.FocusFlow-Pomodoro-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -585,7 +587,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		01D5B1372959F9FF00A6B4A4 /* Build configuration list for PBXProject "Pomodoro-App" */ = {
+		01D5B1372959F9FF00A6B4A4 /* Build configuration list for PBXProject "FocusFlow-Pomodoro-App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01D5B14E2959FA0100A6B4A4 /* Debug */,
@@ -594,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		01D5B1502959FA0100A6B4A4 /* Build configuration list for PBXNativeTarget "Pomodoro-App" */ = {
+		01D5B1502959FA0100A6B4A4 /* Build configuration list for PBXNativeTarget "FocusFlow-Pomodoro-App" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01D5B1512959FA0100A6B4A4 /* Debug */,
