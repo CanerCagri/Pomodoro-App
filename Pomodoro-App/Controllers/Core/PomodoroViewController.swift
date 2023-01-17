@@ -100,10 +100,10 @@ class PomodoroViewController: UIViewController {
     
     @objc func leftBarButtonTapped() {
         if pomodoros.isEmpty {
-            presentAlert(title: "Can't Remove Pomodoros.", message: "Do not have Pomodoro to be removed.", buttonTitle: "Ok")
+            presentAlert(title: "Warning", message: "Don't have Pomodoro to be removed.", buttonTitle: "Ok")
             
         } else {
-            let alertController = UIAlertController(title: "Deleting All Pomodoros", message: nil, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
             
             let deleteButton = UIAlertAction(title: "OK", style: .default) { _ in
                 PersistenceManager.shared.deleteAllPomodoros()

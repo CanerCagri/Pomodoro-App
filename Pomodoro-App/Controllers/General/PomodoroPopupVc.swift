@@ -23,7 +23,7 @@ class PomodoroPopupVc: UIViewController {
     
     private let containerView = PAContainerView()
     private let addPomodoroLabel = PALabel(textAlignment: .center, fontSize: 20)
-    private let pomodoroNameTextField = PATextField(placeholder: "Enter a pomodoro name")
+    private let pomodoroNameTextField = PATextField(placeholder: "Enter a Pomodoro name")
     private let pomodoroTimeLabel = PALabel(textAlignment: .left, fontSize: 17)
     private let pomodoroTextField = PATextField(placeholder: "00:00")
     private let pomodoroPicker = PADatePicker()
@@ -133,17 +133,17 @@ class PomodoroPopupVc: UIViewController {
     
     @objc func saveButtonTapped() {
         guard let name = pomodoroNameTextField.text, !name.isEmpty else {
-            presentAlert(title: "Pomodoro Name Error", message: "Please enter a pomodoro name", buttonTitle: "Ok")
+            presentAlert(title: "Warning", message: "Please enter a Pomodoro name", buttonTitle: "Ok")
             return
             
         }
         guard let focusTime = pomodoroTextField.text, !focusTime.isEmpty else {
-            presentAlert(title: "Focus Time Error", message: "Please enter a focus time", buttonTitle: "Ok")
+            presentAlert(title: "Warning", message: "Please enter a Focus time", buttonTitle: "Ok")
             return
             
         }
         guard let breakTime = breakTimeTextField.text, !breakTime.isEmpty else {
-            presentAlert(title: "Break Time Error", message: "Please enter a break time", buttonTitle: "Ok")
+            presentAlert(title: "Warning", message: "Please enter a Break time", buttonTitle: "Ok")
             return
             
         }
