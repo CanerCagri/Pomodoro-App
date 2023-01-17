@@ -103,7 +103,7 @@ class PomodoroViewController: UIViewController {
             presentAlert(title: "Warning", message: "Don't have Pomodoro to be removed.", buttonTitle: "Ok")
             
         } else {
-            let alertController = UIAlertController(title: "Warning", message: nil, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Deleting All Pomodoro's", message: nil, preferredStyle: .alert)
             
             let deleteButton = UIAlertAction(title: "OK", style: .default) { _ in
                 PersistenceManager.shared.deleteAllPomodoros()
