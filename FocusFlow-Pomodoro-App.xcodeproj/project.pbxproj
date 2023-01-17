@@ -530,6 +530,7 @@
 				DEVELOPMENT_TEAM = XSY7H53P5K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FocusFlow-Pomodoro-App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "FocusFlow: Pomodoro&Rule Your Time";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -562,6 +563,7 @@
 				DEVELOPMENT_TEAM = XSY7H53P5K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FocusFlow-Pomodoro-App/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "FocusFlow: Pomodoro&Rule Your Time";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
