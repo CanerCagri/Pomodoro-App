@@ -41,6 +41,7 @@ enum SFSymbols {
     static let save = "checkmark.circle"
     static let pomodoroIcon = "timer"
     static let musicIcon = "music.note.list"
+    static let closeButton = "xmark.circle.fill"
 }
 
 enum Sounds {
