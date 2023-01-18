@@ -32,6 +32,14 @@ class PomodoroPopupVc: UIViewController {
     private let breakTimePicker = PADatePicker()
     private let saveButton = PAButton(title: "SAVE", color: .systemPink, systemImageName: SFSymbols.save)
     
+    private var closeButton: UIButton = {
+        var button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
+        button.setTitleColor(UIColor.label, for: .normal)
+        return button
+    }()
+    
     // Lifecycle methods
     
     override func viewDidLoad() {
@@ -53,6 +61,12 @@ class PomodoroPopupVc: UIViewController {
         addPomodoroLabel.text = "Add Pomodoro"
         pomodoroTextField.delegate = self
         breakTimeTextField.delegate = self
+        
+        closeButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
+    }
+    
+    @objc func closePopup() {
+        animateOut()
     }
     
     private func addGestureRecognizers() {
@@ -174,7 +188,12 @@ class PomodoroPopupVc: UIViewController {
         containerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.82).isActive = true
         containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.62).isActive = true
         
-        containerView.addSubviews(addPomodoroLabel, pomodoroNameTextField, pomodoroTimeLabel, pomodoroTextField, breakTimeLabel, breakTimeTextField, saveButton)
+        containerView.addSubviews(closeButton, addPomodoroLabel, pomodoroNameTextField, pomodoroTimeLabel, pomodoroTextField, breakTimeLabel, breakTimeTextField, saveButton)
+        
+        closeButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2).isActive = true
+        closeButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2).isActive = true
+        closeButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        closeButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         
         addPomodoroLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
         addPomodoroLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
