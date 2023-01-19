@@ -71,7 +71,13 @@ class PomodoroViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.animateOut), object: nil, queue: nil) { [weak self] _ in
             self?.navigationItem.rightBarButtonItem?.isEnabled = true
             self?.pomodoroTableView.isHidden = false
-            self?.searchController.searchBar.isHidden = false
+            
+            if self?.pomodoros.isEmpty == true {
+                self?.searchController.searchBar.isHidden = true
+            } else {
+                self?.searchController.searchBar.isHidden = false
+            }
+            
         }
     }
     

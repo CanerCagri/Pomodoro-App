@@ -17,7 +17,8 @@ class PomodoroPopupVc: UIViewController {
     var pomodoroMin: String!
     var breakHour: String!
     var breakMin: String!
-    
+    var saveButtonBottomAnchorConstraint: NSLayoutConstraint!
+    var breakLabelBottomAnchorConstraint: NSLayoutConstraint!
     
     // UI Components
     
@@ -52,6 +53,13 @@ class PomodoroPopupVc: UIViewController {
         addGestureRecognizers()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
     // Methods
     
     private func configureViewController() {
@@ -65,6 +73,46 @@ class PomodoroPopupVc: UIViewController {
         breakTimeTextField.delegate = self
         
         closeButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(
+           self,
+           selector: #selector(keyboardWillShow),
+           name: UIResponder.keyboardWillShowNotification,
+           object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+           self,
+           selector: #selector(keyboardWillHide),
+           name: UIResponder.keyboardWillHideNotification,
+           object: nil
+        )
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        let saveButtonBottomSpace: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? 210 : 255
+        let saveButtonBottomAnchor = self.saveButton.frame.height - saveButtonBottomSpace
+        
+        let breakLabelBottomSpace: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? 30 : 50
+        let breakLabelBottomAnchor = self.breakTimeLabel.frame.height - breakLabelBottomSpace
+        
+     
+        UIView.animate(withDuration: 0.3) {
+            self.saveButtonBottomAnchorConstraint.constant = saveButtonBottomAnchor
+            self.breakLabelBottomAnchorConstraint.constant = breakLabelBottomAnchor
+            self.containerView.layoutIfNeeded()
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        
+        let breakButtonBottomSpace: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? -130 : -250
+        
+        UIView.animate(withDuration: 0.3) {
+            self.saveButtonBottomAnchorConstraint.constant = -10
+            self.breakLabelBottomAnchorConstraint.constant = breakButtonBottomSpace
+            self.containerView.layoutIfNeeded()
+        }
     }
     
     @objc func closePopup() {
@@ -107,7 +155,7 @@ class PomodoroPopupVc: UIViewController {
     }
     
     @objc func dontAnimateOut(){
-        print("I dont want to animate out :))")
+   
     }
     
     @objc func openBottomSheet(with name: String) {
@@ -192,6 +240,8 @@ class PomodoroPopupVc: UIViewController {
         
         containerView.addSubviews(closeButton, addPomodoroLabel, pomodoroNameTextField, pomodoroTimeLabel, pomodoroTextField, breakTimeLabel, breakTimeTextField, saveButton)
         
+        let breakButtonBottomSpace: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? -130 : -250
+        
         closeButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 2).isActive = true
         closeButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 2).isActive = true
         closeButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
@@ -203,30 +253,32 @@ class PomodoroPopupVc: UIViewController {
         addPomodoroLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         pomodoroNameTextField.topAnchor.constraint(equalTo: addPomodoroLabel.bottomAnchor, constant: 20).isActive = true
-        pomodoroNameTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5).isActive = true
-        pomodoroNameTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5).isActive = true
+        pomodoroNameTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
+        pomodoroNameTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
         pomodoroNameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        pomodoroTimeLabel.topAnchor.constraint(equalTo: pomodoroNameTextField.bottomAnchor, constant: 85).isActive = true
-        pomodoroTimeLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5).isActive = true
+        pomodoroTimeLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         pomodoroTimeLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        pomodoroTimeLabel.bottomAnchor.constraint(equalTo: breakTimeLabel.topAnchor, constant: -40).isActive = true
         
-        pomodoroTextField.topAnchor.constraint(equalTo: pomodoroNameTextField.bottomAnchor, constant: 80).isActive = true
         pomodoroTextField.leadingAnchor.constraint(equalTo: pomodoroTimeLabel.trailingAnchor, constant: 10).isActive = true
         pomodoroTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
         pomodoroTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        pomodoroTextField.bottomAnchor.constraint(equalTo: pomodoroTimeLabel.bottomAnchor, constant: 5).isActive = true
         
-        breakTimeLabel.topAnchor.constraint(equalTo: pomodoroTimeLabel.bottomAnchor, constant: 55).isActive = true
-        breakTimeLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 5).isActive = true
+        breakTimeLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
         breakTimeLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        breakLabelBottomAnchorConstraint =  breakTimeLabel.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: breakButtonBottomSpace)
+        breakLabelBottomAnchorConstraint.isActive = true
         
-        breakTimeTextField.topAnchor.constraint(equalTo: pomodoroTimeLabel.bottomAnchor, constant: 50).isActive = true
         breakTimeTextField.leadingAnchor.constraint(equalTo: breakTimeLabel.trailingAnchor, constant: 10).isActive = true
         breakTimeTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
         breakTimeTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        breakTimeTextField.bottomAnchor.constraint(equalTo: breakTimeLabel.bottomAnchor, constant: 5).isActive = true
         
         saveButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
-        saveButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -15).isActive = true
+        saveButtonBottomAnchorConstraint = saveButton.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -10)
+        saveButtonBottomAnchorConstraint.isActive = true
         saveButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
         saveButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
