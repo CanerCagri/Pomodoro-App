@@ -11,6 +11,7 @@ class PATextField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         configure()
     }
     
@@ -20,7 +21,7 @@ class PATextField: UITextField {
     
     init(placeholder: String) {
         super.init(frame: .zero)
-        attributedPlaceholder = NSAttributedString(string: placeholder, attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: Constants.timesNewRoman, size: 20)!])
+        attributedPlaceholder = NSAttributedString(string: placeholder, attributes:[NSAttributedString.Key.foregroundColor: UIColor.lightGray, NSAttributedString.Key.font :UIFont(name: Constants.timesNewRoman, size: 10)!])
         configure()
     }
     
@@ -33,7 +34,7 @@ class PATextField: UITextField {
         textColor = .label
         tintColor = .label
         textAlignment = .center
-        font = UIFont.preferredFont(forTextStyle: .title2)
+        font = UIFont.preferredFont(forTextStyle: .title3)
         adjustsFontSizeToFitWidth = true
         minimumFontSize = 12
         
