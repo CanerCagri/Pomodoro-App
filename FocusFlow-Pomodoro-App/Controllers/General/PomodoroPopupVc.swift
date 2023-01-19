@@ -12,6 +12,7 @@ class PomodoroPopupVc: UIViewController {
     
     //Variables
     
+    let moodSelectionVc = PomodoroBottomSheetVc()
     var viewModel: PomodoroViewModel?
     var pomodoroHour: String!
     var pomodoroMin: String!
@@ -19,6 +20,7 @@ class PomodoroPopupVc: UIViewController {
     var breakMin: String!
     var saveButtonBottomAnchorConstraint: NSLayoutConstraint!
     var breakLabelBottomAnchorConstraint: NSLayoutConstraint!
+    var isBottomSheetOpen = false
     
     // UI Components
     
@@ -38,8 +40,8 @@ class PomodoroPopupVc: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-        button.imageView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        button.imageView?.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        button.imageView?.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        button.imageView?.widthAnchor.constraint(equalToConstant: 40).isActive = true
         return button
     }()
     
@@ -71,6 +73,7 @@ class PomodoroPopupVc: UIViewController {
         addPomodoroLabel.text = "Add Pomodoro"
         pomodoroTextField.delegate = self
         breakTimeTextField.delegate = self
+        pomodoroNameTextField.delegate = self
         
         closeButton.addTarget(self, action: #selector(closePopup), for: .touchUpInside)
         
@@ -87,6 +90,35 @@ class PomodoroPopupVc: UIViewController {
            name: UIResponder.keyboardWillHideNotification,
            object: nil
         )
+    }
+    
+    private func addGestureRecognizers() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateOut))
+        view.addGestureRecognizer(tapGesture)
+        
+        let dontTapGesture = UITapGestureRecognizer(target: self, action: #selector(dontAnimateOut))
+        containerView.addGestureRecognizer(dontTapGesture)
+        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        
+        pomodoroTextField.addTarget(self, action: #selector(pomodoroTextFieldTapped), for: .touchDown)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.addedPomodoroTime), object: nil, queue: nil) { [weak self] (notification) in
+            self?.isBottomSheetOpen = false
+            self?.pomodoroHour = notification.userInfo?["pomodoroHour"] as? String
+            self?.pomodoroMin = notification.userInfo?["pomodoroMin"] as? String
+            let calculatedTime = "\(self?.pomodoroHour! ?? "00"):\(self?.pomodoroMin! ?? "00")"
+            self?.pomodoroTextField.text = calculatedTime
+        }
+        
+        breakTimeTextField.addTarget(self, action: #selector(breakTextFieldTapped), for: .touchDown)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.addedBreakTime), object: nil, queue: nil) { [weak self] (notification) in
+            self?.isBottomSheetOpen = false
+            self?.breakHour = notification.userInfo?["breakTimeHour"] as? String
+            self?.breakMin = notification.userInfo?["breakTimeMin"] as? String
+            let calculatedTime = "\(self?.breakHour! ?? "00"):\(self?.breakMin! ?? "00")"
+            self?.breakTimeTextField.text = calculatedTime
+        }
+        
+        animateIn()
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -115,43 +147,33 @@ class PomodoroPopupVc: UIViewController {
         }
     }
     
+    private func dismissBottomSheet() {
+        isBottomSheetOpen = false
+        if pomodoroNameTextField.isFirstResponder {
+               pomodoroNameTextField.resignFirstResponder()
+           }
+           moodSelectionVc.dismiss(animated: true)
+    }
+    
     @objc func closePopup() {
         animateOut()
     }
     
-    private func addGestureRecognizers() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(animateOut))
-        view.addGestureRecognizer(tapGesture)
-        
-        let dontTapGesture = UITapGestureRecognizer(target: self, action: #selector(dontAnimateOut))
-        containerView.addGestureRecognizer(dontTapGesture)
-        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        
-        pomodoroTextField.addTarget(self, action: #selector(pomodoroTextFieldTapped), for: .touchDown)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.addedPomodoroTime), object: nil, queue: nil) { [weak self] (notification) in
-            self?.pomodoroHour = notification.userInfo?["pomodoroHour"] as? String
-            self?.pomodoroMin = notification.userInfo?["pomodoroMin"] as? String
-            let calculatedTime = "\(self?.pomodoroHour! ?? "00"):\(self?.pomodoroMin! ?? "00")"
-            self?.pomodoroTextField.text = calculatedTime
-        }
-        
-        breakTimeTextField.addTarget(self, action: #selector(breakTextFieldTapped), for: .touchDown)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(Notifications.addedBreakTime), object: nil, queue: nil) { [weak self] (notification) in
-            self?.breakHour = notification.userInfo?["breakTimeHour"] as? String
-            self?.breakMin = notification.userInfo?["breakTimeMin"] as? String
-            let calculatedTime = "\(self?.breakHour! ?? "00"):\(self?.breakMin! ?? "00")"
-            self?.breakTimeTextField.text = calculatedTime
-        }
-        
-        animateIn()
-    }
-
     @objc func pomodoroTextFieldTapped() {
-        openBottomSheet(with: "pomodoro")
+        if !isBottomSheetOpen {
+            isBottomSheetOpen = true
+            view.endEditing(true)
+            openBottomSheet(with: "pomodoro")
+        }
+        
     }
     
     @objc func breakTextFieldTapped() {
-        openBottomSheet(with: "break")
+        if !isBottomSheetOpen {
+            isBottomSheetOpen = true
+            view.endEditing(true)
+            openBottomSheet(with: "break")
+        }
     }
     
     @objc func dontAnimateOut(){
@@ -159,7 +181,6 @@ class PomodoroPopupVc: UIViewController {
     }
     
     @objc func openBottomSheet(with name: String) {
-        let moodSelectionVc = PomodoroBottomSheetVc()
         moodSelectionVc.name = name
         if let sheet = moodSelectionVc.sheetPresentationController {
             sheet.detents = [.medium()]
@@ -233,9 +254,11 @@ class PomodoroPopupVc: UIViewController {
     private func applyConstraints() {
         view.addSubview(containerView)
         
+        let containerViewWidthMultiplier: CGFloat = DeviceTypes.isiPhoneSE || DeviceTypes.isiPhone8PlusZoomed || DeviceTypes.isiPhone8Standard || DeviceTypes.isiPhone8Zoomed || DeviceTypes.isiPhone8PlusStandard ? 0.72 : 0.82
+        
         containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.82).isActive = true
+        containerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: containerViewWidthMultiplier).isActive = true
         containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.62).isActive = true
         
         containerView.addSubviews(closeButton, addPomodoroLabel, pomodoroNameTextField, pomodoroTimeLabel, pomodoroTextField, breakTimeLabel, breakTimeTextField, saveButton)
@@ -248,6 +271,7 @@ class PomodoroPopupVc: UIViewController {
         closeButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
         
         addPomodoroLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor).isActive = true
+        addPomodoroLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -5).isActive = true
         addPomodoroLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10).isActive = true
         addPomodoroLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
         addPomodoroLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -286,6 +310,11 @@ class PomodoroPopupVc: UIViewController {
 
 extension PomodoroPopupVc: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if textField == pomodoroNameTextField {
+            dismissBottomSheet()
+            return true
+            
+        }
         return false
     }
 }
