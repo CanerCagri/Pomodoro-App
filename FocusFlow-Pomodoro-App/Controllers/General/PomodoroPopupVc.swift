@@ -36,7 +36,9 @@ class PomodoroPopupVc: UIViewController {
         var button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
-        button.setTitleColor(UIColor.label, for: .normal)
+        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.imageView?.widthAnchor.constraint(equalToConstant: 44).isActive = true
         return button
     }()
     
