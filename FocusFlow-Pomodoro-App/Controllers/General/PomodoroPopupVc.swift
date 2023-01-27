@@ -40,8 +40,8 @@ class PomodoroPopupVc: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-        button.imageView?.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        button.imageView?.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        button.imageView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        button.imageView?.widthAnchor.constraint(equalToConstant: 44).isActive = true
         return button
     }()
     

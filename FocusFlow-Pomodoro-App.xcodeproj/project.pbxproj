@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		011E8C602984017300F163D4 /* PomodoroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 011E8C5E2984017300F163D4 /* PomodoroModel.xcdatamodeld */; };
 		01BCDCA3296A183100173AA1 /* ringing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 01BCDCA2296A183100173AA1 /* ringing.mp3 */; };
 		01BCDCA7296DAE3A00173AA1 /* AddMusicPopupVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */; };
 		01BCDCA9296DB17000173AA1 /* AddMusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */; };
@@ -29,7 +30,6 @@
 		01D5B1582959FB7100A6B4A4 /* AddMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */; };
 		01D5B15A295B288E00A6B4A4 /* PomodoroTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */; };
 		01D5B15F295B30F000A6B4A4 /* PomodoroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B15E295B30F000A6B4A4 /* PomodoroViewModel.swift */; };
-		01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */; };
 		01D5B168295C79AB00A6B4A4 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */; };
 		01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */; };
 		01D5B16D296345EC00A6B4A4 /* Int+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */; };
@@ -44,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		011E8C5F2984017300F163D4 /* PomodoroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PomodoroModel.xcdatamodel; sourceTree = "<group>"; };
 		01BCDCA2296A183100173AA1 /* ringing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ringing.mp3; sourceTree = "<group>"; };
 		01BCDCA6296DAE3A00173AA1 /* AddMusicPopupVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicPopupVc.swift; sourceTree = "<group>"; };
 		01BCDCA8296DB17000173AA1 /* AddMusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicTableViewCell.swift; sourceTree = "<group>"; };
@@ -68,7 +69,6 @@
 		01D5B1572959FB7100A6B4A4 /* AddMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMusicViewController.swift; sourceTree = "<group>"; };
 		01D5B159295B288E00A6B4A4 /* PomodoroTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTableViewCell.swift; sourceTree = "<group>"; };
 		01D5B15E295B30F000A6B4A4 /* PomodoroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroViewModel.swift; sourceTree = "<group>"; };
-		01D5B164295C796100A6B4A4 /* PomodoroModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PomodoroModel.xcdatamodel; sourceTree = "<group>"; };
 		01D5B167295C79AA00A6B4A4 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		01D5B169295DFE6800A6B4A4 /* PomodoroDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroDetailViewController.swift; sourceTree = "<group>"; };
 		01D5B16C296345EC00A6B4A4 /* Int+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Ext.swift"; sourceTree = "<group>"; };
@@ -179,7 +179,7 @@
 				01D5B15C295B28DE00A6B4A4 /* Controllers */,
 				01D5B15B295B289800A6B4A4 /* Views */,
 				01D5B14D2959FA0100A6B4A4 /* Info.plist */,
-				01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */,
+				011E8C5E2984017300F163D4 /* PomodoroModel.xcdatamodeld */,
 			);
 			path = "FocusFlow-Pomodoro-App";
 			sourceTree = "<group>";
@@ -363,6 +363,7 @@
 			files = (
 				01D5B1402959F9FF00A6B4A4 /* AppDelegate.swift in Sources */,
 				01D5B168295C79AB00A6B4A4 /* PersistenceManager.swift in Sources */,
+				011E8C602984017300F163D4 /* PomodoroModel.xcdatamodeld in Sources */,
 				01D5B16A295DFE6800A6B4A4 /* PomodoroDetailViewController.swift in Sources */,
 				01D5B17D2965F82F00A6B4A4 /* UITableView+Ext.swift in Sources */,
 				01BCDCB329707F9700173AA1 /* PomodoroPopupVc.swift in Sources */,
@@ -378,7 +379,6 @@
 				01D5B1422959F9FF00A6B4A4 /* SceneDelegate.swift in Sources */,
 				01D5B1792964B89700A6B4A4 /* PATitleLabel.swift in Sources */,
 				01D5B1802965FEF500A6B4A4 /* PATextField.swift in Sources */,
-				01D5B165295C796100A6B4A4 /* PomodoroModel.xcdatamodeld in Sources */,
 				01D5B1582959FB7100A6B4A4 /* AddMusicViewController.swift in Sources */,
 				01BCDCBA2971972F00173AA1 /* PAAlertViewController.swift in Sources */,
 				01D5B1762964B66B00A6B4A4 /* PAButton.swift in Sources */,
@@ -526,7 +526,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = XSY7H53P5K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FocusFlow-Pomodoro-App/Info.plist";
@@ -559,7 +559,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = XSY7H53P5K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FocusFlow-Pomodoro-App/Info.plist";
@@ -610,12 +610,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		01D5B163295C796100A6B4A4 /* PomodoroModel.xcdatamodeld */ = {
+		011E8C5E2984017300F163D4 /* PomodoroModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				01D5B164295C796100A6B4A4 /* PomodoroModel.xcdatamodel */,
+				011E8C5F2984017300F163D4 /* PomodoroModel.xcdatamodel */,
 			);
-			currentVersion = 01D5B164295C796100A6B4A4 /* PomodoroModel.xcdatamodel */;
+			currentVersion = 011E8C5F2984017300F163D4 /* PomodoroModel.xcdatamodel */;
 			path = PomodoroModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
